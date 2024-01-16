@@ -346,6 +346,7 @@ import 'package:get/get.dart';
 import 'package:inventra_pro/screens/home/admin/admin_screen.dart';
 import 'package:inventra_pro/screens/home/inventory%20track%20list/inventory_track_list_screen.dart';
 import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_saller_info_screen.dart';
+import 'package:inventra_pro/screens/login/login_screen.dart';
 import '../utils/utils.dart';
 import 'inventory track list/inventory_detail_screen_two.dart';
 
@@ -381,7 +382,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(right: 10),
                 child: InkWell(
                   onTap: (){
-                    FirebaseAuth.instance.signOut();
+                    FirebaseAuth.instance.signOut().then((value){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    });
                   },
                   child: Icon(Icons.exit_to_app),
                 ),

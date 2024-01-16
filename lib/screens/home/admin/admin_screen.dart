@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import '../../../provider/WidgetsViewModel1.dart';
-import '../../../provider/change_email_controller.dart';
+import '../../login/login_screen.dart';
 import '../home_screen.dart';
 import '../inventory track list/inventory_track_list_detail_scree_one.dart';
 import 'email_verification_screen.dart';
@@ -37,11 +36,26 @@ class _AdminScreenState extends State<AdminScreen> {
   bool loading = false;
   bool approve = false;
 
-  changeEmail(){
-    FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text).then((value){
-      print("send");
-    });
-  }
+  final verifyEmail = FirebaseAuth.instance.currentUser!.emailVerified;
+
+
+  // Future resetEmail(String newEmail) async {
+  //   try{
+  //     if(verifyEmail != null){
+  //       FirebaseAuth.instance.currentUser!.updateEmail(newEmail).then((value){
+  //         print("sucess");
+  //       }).onError((error, stackTrace){
+  //         print(error);
+  //         print(stackTrace);
+  //       });
+  //     }else{
+  //       print("Please Enter Your Verify Email");
+  //     }
+  //
+  //   }catch(e){
+  //
+  //   }
+  // }
 
 
   @override
@@ -49,22 +63,30 @@ class _AdminScreenState extends State<AdminScreen> {
     return Consumer2<WidgetsViewModel1, WidgetsViewModel1>(
         builder: (context, widgetProvider, signUpProvider, child) => SafeArea(
                 child: Scaffold(
+                  appBar: AppBar(
+                    title: Text("Admin"),
+                    automaticallyImplyLeading: false,
+                    centerTitle: true,
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: InkWell(
+                          onTap: (){
+                            FirebaseAuth.instance.signOut().then((value){
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                            });
+                          },
+                          child: Icon(Icons.exit_to_app),
+                        ),
+                      ),
+                    ],
+                  ),
               resizeToAvoidBottomInset: false,
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      SizedBox(height: 30.h),
-                      Center(
-                        child: Text(
-                          'Admin',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
                       SizedBox(height: 30.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -388,56 +410,56 @@ class _AdminScreenState extends State<AdminScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10.h),
-                      Divider(
-                        height: 1.h,
-                        color: Colors.black,
-                      ),
-                      SizedBox(height: 10.h),
-                      Center(
-                        child: Text(
-                          'Change Admin',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
-                      TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                            labelText: 'Email',
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      InkWell(
-                        onTap: (){
-                          if(_emailController.text.isEmpty){
-                            Get.snackbar("Error", "Please Enter Your New Email");
-                          }else{
-
-                          }
-                        },
-                        child: Container(
-                          height: 40.h,
-                          width: 350.w,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10.r)),
-                          child: Center(
-                            child: loading ? Center(child: CircularProgressIndicator(color: Colors.white,)) : Text(
-                              'Send',
-                              style: TextStyle(
-                                  fontSize: 18.sp, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                          height:
-                              MediaQuery.of(context).viewInsets.bottom + 20),
+                      // SizedBox(height: 10.h),
+                      // Divider(
+                      //   height: 1.h,
+                      //   color: Colors.black,
+                      // ),
+                      // SizedBox(height: 10.h),
+                      // Center(
+                      //   child: Text(
+                      //     'Change Admin',
+                      //     style: TextStyle(
+                      //         color: Colors.black,
+                      //         fontSize: 20.sp,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
+                      // SizedBox(height: 20.h),
+                      // TextFormField(
+                      //   style: const TextStyle(color: Colors.black),
+                      //   controller: _emailController,
+                      //   decoration: InputDecoration(
+                      //       labelText: 'Email',
+                      //   ),
+                      // ),
+                      // SizedBox(height: 10.h),
+                      // InkWell(
+                      //   onTap: (){
+                      //     if(_emailController.text.isEmpty){
+                      //       Get.snackbar("Error", "Please Enter Your New Email");
+                      //     }else{
+                      //       resetEmail(_emailController.text.trim());
+                      //     }
+                      //   },
+                      //   child: Container(
+                      //     height: 40.h,
+                      //     width: 350.w,
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.black,
+                      //         borderRadius: BorderRadius.circular(10.r)),
+                      //     child: Center(
+                      //       child: loading ? Center(child: CircularProgressIndicator(color: Colors.white,)) : Text(
+                      //         'Send',
+                      //         style: TextStyle(
+                      //             fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //     height:
+                      //         MediaQuery.of(context).viewInsets.bottom + 20),
                     ],
                   ),
                 ),
