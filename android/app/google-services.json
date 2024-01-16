@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "379279122608",
+    "project_id": "test-da5ba",
+    "storage_bucket": "test-da5ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379279122608:android:49a74170ad64de413d9b75",
+        "android_client_info": {
+          "package_name": "com.example.inventra_pro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpSC6zYZn6ltmqxBqtQpHc39dY-ANLawI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
