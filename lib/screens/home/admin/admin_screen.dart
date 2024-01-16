@@ -43,15 +43,6 @@ class _AdminScreenState extends State<AdminScreen> {
     return Consumer2<WidgetsViewModel1, WidgetsViewModel1>(
         builder: (context, widgetProvider, signUpProvider, child) => SafeArea(
                 child: Scaffold(
-                  appBar: AppBar(
-                    title: IconButton(
-                      onPressed: (){
-                        FirebaseAuth.instance.signOut();
-                      },
-                      icon: Icon(Icons.exit_to_app,
-                      ),
-                    ),
-                  ),
               resizeToAvoidBottomInset: false,
               body: SingleChildScrollView(
                 child: Column(

@@ -31,196 +31,168 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
         child: Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          SizedBox(height: 40.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Inventa',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 40.sp,
-                    fontWeight: FontWeight.w400),
-              ),
-              Text(
-                ' Pro',
-                style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w700),
-              )
-            ],
-          ),
-          SizedBox(height: 20.h),
-          Text(
-            'Vechicle Track List',
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: 35.sp,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 70.h),
-          Text(
-            'Sign In',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 20.sp),
-          ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Form(
-            key: _formkey,
-            child: Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            SizedBox(height: 40.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: Container(
-                    height: 50.h,
-                    width: 330.w,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(width: 1.w, color: Colors.blue)),
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.white),
-                      controller: emailController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(bottom: 15.h),
-                          labelText: 'Login ID',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          prefixIcon: const Icon(
-                            Icons.email,
-                            color: Colors.white,
-                          ),
-                          hintStyle: const TextStyle(color: Colors.white)),
-                    ),
-                  ),
+                Text(
+                  'Inventa',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 40.sp,
+                      fontWeight: FontWeight.w400),
                 ),
-                SizedBox(height: 10.h),
-                Center(
-                  child: Container(
-                    height: 50.h,
-                    width: 330.w,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(width: 1.w, color: Colors.blue)),
-                    child: TextFormField(
-                      obscureText: true,
-                      style: const TextStyle(color: Colors.white),
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(bottom: 15.h),
-                          labelText: 'Password',
-                          labelStyle: const TextStyle(color: Colors.white),
-                          prefixIcon: const Icon(
-                            Icons.password,
-                            color: Colors.white,
-                          ),
-                          hintStyle: const TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                ),
+                Text(
+                  ' Pro',
+                  style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w700),
+                )
               ],
             ),
-          ),
-          SizedBox(height: 10.h),
-          Row(
-            children: [
-              const Spacer(),
-              InkWell(
-                onTap: () {
-                  Get.to(const ForgotPassword());
-                },
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.sp),
-                ),
+            SizedBox(height: 70.h),
+            Text(
+              'Sign In',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.sp),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Form(
+              key: _formkey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailController,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'Login ID',
+                      prefixIcon: const Icon(
+                          Icons.email,
+                        ),
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  TextFormField(
+                    obscureText: true,
+                    controller: passwordController,
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(bottom: 15.h),
+                        labelText: 'Password',
+                        prefixIcon: const Icon(
+                          Icons.password,
+                        ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: 20.w)
-            ],
-          ),
-          SizedBox(height: 20.h),
-          InkWell(
-            onTap: () async {
-              if (_formkey.currentState!.validate()) {
-                setState(() {
-                  loading = true;
-                });
-              }
+            ),
+            SizedBox(height: 10.h),
+            Row(
+              children: [
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    Get.to(const ForgotPassword());
+                  },
+                  child: Text(
+                    'Forgot Password',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp),
+                  ),
+                ),
+                SizedBox(width: 20.w)
+              ],
+            ),
+            SizedBox(height: 20.h),
+            InkWell(
+              onTap: () async {
+                if (_formkey.currentState!.validate()) {
+                  setState(() {
+                    loading = true;
+                  });
+                }
 
-              try {
-                await _auth
-                    .signInWithEmailAndPassword(
-                        email: emailController.text.toString(),
-                        password: passwordController.text.toString())
-                    .then((value) {
+                try {
+                  await _auth
+                      .signInWithEmailAndPassword(
+                          email: emailController.text.toString(),
+                          password: passwordController.text.toString())
+                      .then((value) {
+                    setState(() {
+                      loading = false;
+                    });
+                    FirebaseFirestore.instance.collection("admin")
+                        .doc("admin")
+                        .get().then((DocumentSnapshot documentSnapshot){
+                      if(documentSnapshot.exists){
+                        if(documentSnapshot.get("email") == FirebaseAuth.instance.currentUser!.email){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+                        }else{
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                        }
+                      }else{
+                        print('Document does not exist on the database');
+                      }
+                    });
+                  });
+                } on FirebaseAuthException catch (e) {
+                  Utils().toastMessage(e.message.toString());
                   setState(() {
                     loading = false;
                   });
-                  FirebaseFirestore.instance.collection("admin")
-                      .doc("admin")
-                      .get().then((DocumentSnapshot documentSnapshot){
-                    if(documentSnapshot.exists){
-                      if(documentSnapshot.get("email") == FirebaseAuth.instance.currentUser!.email){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
-                      }else{
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                      }
-                    }else{
-                      print('Document does not exist on the database');
-                    }
-                  });
-                });
-              } on FirebaseAuthException catch (e) {
-                Utils().toastMessage(e.message.toString());
-                setState(() {
-                  loading = false;
-                });
-              }
-            },
-            child: Container(
-              height: 50.h,
-              width: 300.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
-                  color: Colors.green),
-              child: Center(
-                  child: loading
-                      ? const CircularProgressIndicator(
-                          strokeWidth: 3,
-                          color: Colors.white,
-                        )
-                      : Text(
-                          'Log In',
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        )),
+                }
+              },
+              child: Container(
+                height: 40.h,
+                width: 400.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.r),
+                    color: Colors.black),
+                child: Center(
+                    child: loading
+                        ? const CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Colors.white,
+                          )
+                        : Text(
+                            'Log In',
+                            style: TextStyle(
+                                fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          )),
+              ),
             ),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: () {
-              Get.to(const SignupScreen());
-            },
-            child: Text(
-              'Create an account',
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.sp),
+            const Spacer(),
+            InkWell(
+              onTap: () {
+                Get.to(const SignupScreen());
+              },
+              child: Text(
+                'Create an account',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.sp),
+              ),
             ),
-          ),
-          SizedBox(height: 20.h),
-        ],
+            SizedBox(height: 20.h),
+          ],
+        ),
       ),
     ));
   }

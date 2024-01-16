@@ -391,24 +391,15 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 20.h),
             Padding(
               padding: EdgeInsets.all(10.r),
-              child: Container(
-                height: 40.h,
-                padding: EdgeInsets.only(left: 20),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: TextField(
-                  onChanged: (String value) {
-                    setState(() {});
-                  },
-                  controller: searchFilter,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: ' Parts Search',
-                    hintStyle: TextStyle(color: Colors.black)
-                  ),
+              child: TextField(
+                onChanged: (String value) {
+                  setState(() {});
+                },
+                controller: searchFilter,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: ' Parts Search',
+                  hintStyle: TextStyle(color: Colors.black)
                 ),
               ),
             ),
@@ -543,11 +534,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Get.to(const VehicleSllerInformationScreen());
                 },
                 child: Container(
-                  height: 50.h,
+                  height: 40.h,
                   width: 300.w,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: Colors.green),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.black),
                   child: Center(
                       child: Text(
                     'Vehicle seller Information',
@@ -564,11 +555,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Get.to(const InventoryTrackListScreen());
                 },
                 child: Container(
-                  height: 50.h,
+                  height: 40.h,
                   width: 300.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.r),
-                      color: Colors.green),
+                      color: Colors.black),
                   child: Center(
                       child: Text(
                     'Inventory Track List',
