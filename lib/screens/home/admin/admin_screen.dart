@@ -37,7 +37,12 @@ class _AdminScreenState extends State<AdminScreen> {
   bool loading = false;
   bool approve = false;
 
-  EmailChangeService emailChangeService = EmailChangeService();
+  changeEmail(){
+    FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text).then((value){
+      print("send");
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +267,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           ),
                           Flexible(
                             child: TextFormField(
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.black),
                               controller: make2Controller,
                               decoration: InputDecoration(
                                 labelText: 'Make',
@@ -412,11 +417,7 @@ class _AdminScreenState extends State<AdminScreen> {
                           if(_emailController.text.isEmpty){
                             Get.snackbar("Error", "Please Enter Your New Email");
                           }else{
-                            emailChangeService.changeEmail(_emailController.text).then((value){
-                              print("Your Email is update");
-                            }).onError((error, stackTrace){
-                              print("Error is Not Found $error");
-                            });
+
                           }
                         },
                         child: Container(

@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      child: AdminScreen(),
+      child: SplashScreen(),
     );
   }
 }
