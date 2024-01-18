@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,6 +33,8 @@ class VehicleSllerInformationScreenState
   final modelController = TextEditingController();
   final vinnController = TextEditingController();
   bool loading = false;
+  static String admin = "admininventapro21@gmail.com";
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -75,6 +78,7 @@ class VehicleSllerInformationScreenState
                     Row(
                       children: [
                         const Spacer(),
+                        FirebaseAuth.instance.currentUser!.uid != admin ?
                         InkWell(
                           onTap: () {
                             Get.to(const VehiclesellerDetailScreen());
@@ -84,7 +88,8 @@ class VehicleSllerInformationScreenState
                             style:
                                 TextStyle(color: Colors.black, fontSize: 18.sp),
                           ),
-                        ),
+                        ) :
+                        SizedBox(),
                         SizedBox(
                           width: 25.w,
                         )

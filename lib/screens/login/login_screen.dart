@@ -137,20 +137,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {
                       loading = false;
                     });
-                    FirebaseFirestore.instance.collection("admin")
-                        .doc("admin")
-                        .get().then((DocumentSnapshot documentSnapshot){
-                      if(documentSnapshot.exists){
-                        if(documentSnapshot.get("email") == FirebaseAuth.instance.currentUser!.email){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
-                        }else{
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-                        }
-                      }else{
-                        print('Document does not exist on the database');
-                      }
-                    });
-                  });
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                    },
+                  );
                 } on FirebaseAuthException catch (e) {
                   Utils().toastMessage(e.message.toString());
                   setState(() {

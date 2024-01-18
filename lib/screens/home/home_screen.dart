@@ -366,7 +366,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _auth = FirebaseAuth.instance;
 
-  // static String admin = "admininventapro21@gmail.com";
+  bool visibility = true;
+
+  static String admin = "admininventapro21@gmail.com";
 
   @override
 
@@ -397,6 +399,9 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 30,
+            ),
             Padding(
               padding: EdgeInsets.all(10.r),
               child: TextField(
@@ -415,130 +420,57 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Container(
-                  height: 400.h,
+                  height: 100.h,
                   width: 378.w,
                   decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(10.r)),
-                  child: StreamBuilder<QuerySnapshot>(
+                  child: StreamBuilder(
                       stream: FirebaseFirestore.instance
-                          .collection("inventoryTrackList")
+                          .collection("inventoryTrackList").where("carName",isGreaterThanOrEqualTo: searchFilter.text.toString())
                           .snapshots(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting &&
-                            snapshot.data == null) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                        if(snapshot.hasData){
+                          return searchFilter.text.isEmpty ?
+                          Center(child: Text("Please Search your Car Parts",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 20),)) :
+                          ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context,index){
+
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => InventoryDetailScreenTwo(
+                                    carName: snapshot.data!.docs[index]["carName"],
+                                    by_name_of_parts: snapshot.data!.docs[index]["by_name_of_parts"],
+                                    year: snapshot.data!.docs[index]["year"],
+                                    make: snapshot.data!.docs[index]["make"],
+                                    model: snapshot.data!.docs[index]["model"],
+                                    vinn: snapshot.data!.docs[index]["vinn"],
+                                    tires: snapshot.data!.docs[index]["tires"],
+                                    Receipt: snapshot.data!.docs[index]["search_list_by_size_of_tires"],
+                                    size: snapshot.data!.docs[index]["size"],
+                                    condition: snapshot.data!.docs[index]["condition"],
+                                    make2: snapshot.data!.docs[index]["make2"],
+                                    image12: snapshot.data!.docs[index]["image12"],
+
+                                  )));
+                                },
+                                child: Card(
+                                  color: Colors.white,
+                                  child: ListTile(
+                                    title: Text(snapshot.data!.docs[index]["carName"]),
+                                  ),
+                                ),
+                              );
+                            },
                           );
-                        } else {
-                          return ListView.builder(
-                              itemCount: snapshot.data?.docs.length,
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot data =
-                                    snapshot.data!.docs[index];
-                                final title = '${data['by_name_of_parts']}';
-                                if (searchFilter.text.isEmpty) {
-                                  return InkWell(
-                                    onTap: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             CustomerDetailScreen(
-                                      //               id: snapshot
-                                      //                   .data!.docs[index].id,
-                                      //               name: data['customer_name'],
-                                      //               comapanyName:
-                                      //                   data['company_name'],
-                                      //               email: data['email_adress'],
-                                      //               addressLine:
-                                      //                   data['address_line'],
-                                      //               addressLine1:
-                                      //                   data['address_line_1'],
-                                      //               addressLine2:
-                                      //                   data['address_ine_2'],
-                                      //               city: data['city'],
-                                      //               country: data['country'],
-                                      //               identificationNo:
-                                      //                   data['identification_no'],
-                                      //               shippingName:
-                                      //                   data['shipping_name'],
-                                      //               stateorProvince:
-                                      //                   data['state_or_province'],
-                                      //               postalCode:
-                                      //                   data['postal_code'],
-                                      //             )));
-                                    },
-                                    child: Container(),
-                                  );
-                                } else if (title.toLowerCase().contains(
-                                    searchFilter.text.toLowerCase().toString())) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  InventoryDetailScreenTwo(
-                                                    // id: snapshot
-                                                    //     .data!.docs[index].id,
-                                                    by_name_of_parts:
-                                                        data['by_name_of_parts'],
-                                                    condition: data['condition'],
-                                                    make: data['make'],
-                                                    make2: data['make2'],
-                                                    model: data['model'],
-                                                    size: data['size'],
-                                                    tires: data['tires'],
-                                                    vinn: data['vinn'],
-                                                    year: data['year'],
-                                                  )));
-                                    },
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 8.w,
-                                                right: 8.w,
-                                                top: 10,
-                                                bottom: 10.h),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  '${data['by_name_of_parts']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                const Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  size: 15,
-                                                  color: Colors.black,
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: Colors.grey,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              });
+                        }else{
+                          return Center(child: CircularProgressIndicator());
                         }
                       })),
             ),
-
             ///
-
             SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
             Center(
               child: InkWell(
                 onTap: () {
@@ -546,150 +478,139 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Container(
                   height: 40.h,
-                  width: 300.w,
+                  width: 340.w,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                       color: Colors.black),
                   child: Center(
                       child: Text(
-                    'Vehicle seller Information',
-                    style:
+                        'Vehicle seller Information',
+                        style:
                         TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                  )),
+                      )),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            // Center(
+            //   child: InkWell(
+            //     onTap: () {
+            //       Get.to(const InventoryTrackListScreen());
+            //     },
+            //     child: Container(
+            //       height: 40.h,
+            //       width: 340.w,
+            //       decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(10),
+            //           color: Colors.black),
+            //       child: Center(
+            //           child: Text(
+            //         'Inventory Track List',
+            //         style:
+            //             TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            //       )),
+            //     ),
+            //   ),
+            // ),
+            SizedBox(height: 10.h),
+            Divider(thickness: 1.w),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.all(10.r),
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                controller: emailController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Admin Email',
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            Padding(
+              padding: EdgeInsets.all(10.r),
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                controller: passwordController,
+                obscureText: visibility,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  suffixIcon: InkWell(
+                    onTap: (){
+                      visibility =! visibility;
+                      setState(() {
+
+                      });
+                    },
+                    child: Icon(visibility ? Icons.visibility_off : Icons.visibility),
+                  ),
+                  hintText: 'Admin Password',
                 ),
               ),
             ),
             SizedBox(height: 10.h),
             Center(
               child: InkWell(
-                onTap: () {
-                  Get.to(const InventoryTrackListScreen());
+                onTap: () async {
+                  // print(admin);
+                  setState(() {
+                    loading = true;
+                  });
+                  try {
+                    _auth
+                        .signInWithEmailAndPassword(
+                        email: emailController.text.toString(),
+                        password: passwordController.text.toString())
+                        .then((value) {
+                      if(emailController.text == admin){
+                        setState(() {
+                          loading = false;
+                          Get.to(const AdminScreen());
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+                      }else{
+                        Get.snackbar("Error", "Your Email is Incorrct");
+                        setState(() {
+                          loading = false;
+                          Get.to(const AdminScreen());
+                        });
+                      }
+                      setState(() {
+                        loading = false;
+                        Get.to(const AdminScreen());
+                      });
+                    });
+                  } on FirebaseAuthException catch (e) {
+                    Utils().toastMessage(e.message.toString());
+                    setState(() {
+                      loading = false;
+                    });
+                  }
                 },
                 child: Container(
                   height: 40.h,
-                  width: 300.w,
+                  width: 350.w,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
+                      borderRadius: BorderRadius.circular(10.r),
                       color: Colors.black),
                   child: Center(
-                      child: Text(
-                    'Inventory Track List',
-                    style:
-                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
-                  )),
+                      child: loading
+                          ? const CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: Colors.white,
+                            )
+                          : Text(
+                              'Login Admin',
+                              style: TextStyle(
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
+                            )),
                 ),
               ),
             ),
-            // SizedBox(height: 10.h),
-            // Divider(thickness: 1.w),
-            // SizedBox(height: 10.h),
-            // Center(
-            //   child: Container(
-            //     height: 50.h,
-            //     width: 300.w,
-            //     decoration: BoxDecoration(
-            //       color: Colors.green,
-            //       borderRadius: BorderRadius.circular(20.r),
-            //     ),
-            //     child: TextFormField(
-            //       style: const TextStyle(color: Colors.white),
-            //       controller: emailController,
-            //       decoration: InputDecoration(
-            //           border: InputBorder.none,
-            //           contentPadding: EdgeInsets.only(bottom: 15.h),
-            //           labelText: 'Admin Login ID',
-            //           labelStyle: const TextStyle(color: Colors.white),
-            //           prefixIcon: const Icon(
-            //             Icons.email,
-            //             color: Colors.white,
-            //           ),
-            //           hintStyle: const TextStyle(color: Colors.white)),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(height: 10.h),
-            // Center(
-            //   child: Container(
-            //     height: 50.h,
-            //     width: 300.w,
-            //     decoration: BoxDecoration(
-            //       color: Colors.green,
-            //       borderRadius: BorderRadius.circular(20.r),
-            //     ),
-            //     child: TextFormField(
-            //       style: const TextStyle(color: Colors.white),
-            //       controller: passwordController,
-            //       decoration: InputDecoration(
-            //           border: InputBorder.none,
-            //           contentPadding: EdgeInsets.only(bottom: 15.h),
-            //           labelText: 'Password',
-            //           labelStyle: const TextStyle(color: Colors.white),
-            //           prefixIcon: const Icon(
-            //             Icons.password,
-            //             color: Colors.white,
-            //           ),
-            //           hintStyle: const TextStyle(color: Colors.white)),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(height: 10.h),
-            // Center(
-            //   child: InkWell(
-            //     onTap: () async {
-            //       // print(admin);
-            //       var doc = await FirebaseFirestore.instance
-            //           .collection("admin")
-            //       .doc("admin").get();
-            //
-            //       if (emailController.text.trim() == doc.data()!["email"]){
-            //         setState(() {
-            //           loading = true;
-            //         });
-            //         try {
-            //           _auth
-            //               .signInWithEmailAndPassword(
-            //               email: emailController.text.toString(),
-            //               password: passwordController.text.toString())
-            //               .then((value) {
-            //             setState(() {
-            //               loading = false;
-            //               Get.to(const AdminScreen());
-            //             });
-            //           });
-            //         } on FirebaseAuthException catch (e) {
-            //           Utils().toastMessage(e.message.toString());
-            //           setState(() {
-            //             loading = false;
-            //           });
-            //         }
-            //       } else {
-            //         Utils().toastMessage('something wrong');
-            //       }
-            //     },
-            //     child: Container(
-            //       height: 50.h,
-            //       width: 150.w,
-            //       decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(20.r),
-            //           color: Colors.green),
-            //       child: Center(
-            //           child: loading
-            //               ? const CircularProgressIndicator(
-            //                   strokeWidth: 3,
-            //                   color: Colors.white,
-            //                 )
-            //               : Text(
-            //                   'Login Admin',
-            //                   style: TextStyle(
-            //                       fontSize: 20.sp, fontWeight: FontWeight.bold),
-            //                 )),
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
-            // Container(
-            //   height: 300.h,
-            // )
+            SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+            Container(
+              height: 300.h,
+            )
           ],
         ),
       ),

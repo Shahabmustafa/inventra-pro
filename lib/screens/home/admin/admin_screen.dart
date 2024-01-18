@@ -32,6 +32,7 @@ class _AdminScreenState extends State<AdminScreen> {
   final conditionController = TextEditingController();
   final make2Controller = TextEditingController();
   final receiptController = TextEditingController();
+  final carName = TextEditingController();
 
   bool loading = false;
   bool approve = false;
@@ -173,6 +174,14 @@ class _AdminScreenState extends State<AdminScreen> {
                         ),
                       ),
                       SizedBox(height: 30.h),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.black),
+                        controller: carName,
+                        decoration: InputDecoration(
+                          labelText: 'Car Name',
+                        ),
+                      ),
+                      SizedBox(height: 10.h),
                       Row(
                         children: [
                           Flexible(
@@ -180,7 +189,7 @@ class _AdminScreenState extends State<AdminScreen> {
                               style: const TextStyle(color: Colors.black),
                               controller: byNameOfPartController,
                               decoration: InputDecoration(
-                                labelText: 'By Name of parts',
+                                labelText: 'Name of Parts',
                               ),
                             ),
                           ),
@@ -253,6 +262,7 @@ class _AdminScreenState extends State<AdminScreen> {
                               style: const TextStyle(color: Colors.black),
                               controller: receiptController,
                               decoration: InputDecoration(
+                                hintText: "Receipt",
                                 border: InputBorder.none,
                               ),
                             ),
@@ -350,62 +360,76 @@ class _AdminScreenState extends State<AdminScreen> {
                       ),
 
                       ////////
-                      Container(
-                        height: 40.h,
-                        width: 350.w,
-                        decoration: BoxDecoration(
-                            color: approve ? Colors.red : Colors.green,
-                            borderRadius: BorderRadius.circular(10.r)),
-                        child: Center(
-                          child: InkWell(
-                            onTap: () async {
-                              setState(() {
-                                approve = true;
-                              });
-                              await widgetProvider.uploadImage12(context);
-                              await Firebase.initializeApp();
-                              return await FirebaseFirestore.instance
-                                  .collection('inventoryTrackList')
-                                  .doc()
-                                  .set({
-                                'by_name_of_parts':
-                                    byNameOfPartController.text.trim(),
-                                'year': yearController.text.trim(),
-                                'make': makeController.text.trim(),
-                                'model': modelController.text.trim(),
-                                'vinn': vinnController.text.trim(),
-                                'tires': tiresController.text.trim(),
-                                'size': sizeController.text.trim(),
-                                'search_list_by_size_of_tires':
-                                    receiptController.text.trim(),
-                                'condition':
-                                    conditionController.text.trim(),
-                                'make2': make2Controller.text.trim(),
-                                'image12':
-                                    widgetProvider.imageUrlDownload12,
-                                ////////////////
-                              }).then(
-                                (value) {
-                                  Get.to(const HomeScreen());
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Container(
+                          height: 40.h,
+                          width: 350.w,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(10.r)),
+                          child: Center(
+                            child: InkWell(
+                              onTap: () async {
+                                setState(() {
+                                  approve = true;
+                                });
+                                await widgetProvider.uploadImage12(context);
+                                await Firebase.initializeApp();
+                                return await FirebaseFirestore.instance
+                                    .collection('inventoryTrackList')
+                                    .doc()
+                                    .set({
+                                  "carName" :
+                                      carName.text.trim(),
+                                  'by_name_of_parts':
+                                      byNameOfPartController.text.trim(),
+                                  'year': yearController.text.trim(),
+                                  'make': makeController.text.trim(),
+                                  'model': modelController.text.trim(),
+                                  'vinn': vinnController.text.trim(),
+                                  'tires': tiresController.text.trim(),
+                                  'size': sizeController.text.trim(),
+                                  'search_list_by_size_of_tires':
+                                      receiptController.text.trim(),
+                                  'condition':
+                                      conditionController.text.trim(),
+                                  'make2': make2Controller.text.trim(),
+                                  'image12':
+                                      widgetProvider.imageUrlDownload12,
+                                  ////////////////
+                                }).then(
+                                  (value) {
+                                    byNameOfPartController.clear();
+                                    yearController.clear();
+                                    makeController.clear();
+                                    modelController.clear();
+                                    vinnController.clear();
+                                    tiresController.clear();
+                                    sizeController.clear();
+                                    receiptController.clear();
+                                    conditionController.clear();
+                                    make2Controller.clear();
+                                    setState(() {
+                                      approve = false;
+                                    });
+                                    print(
+                                        'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+                                  },
+                                ).onError((error, stackTrace){
                                   setState(() {
                                     approve = false;
                                   });
-                                  print(
-                                      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-                                },
-                              ).onError((error, stackTrace){
-                                setState(() {
-                                  approve = false;
                                 });
-                              });
-                            },
-                            child: approve ?
-                            Center(child: CircularProgressIndicator(color: Colors.white,)) :
-                            Text(
-                              'Approve User',
-                              style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold),
+                              },
+                              child: approve ?
+                              Center(child: CircularProgressIndicator(color: Colors.white,)) :
+                              Text(
+                                'Approve User',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),

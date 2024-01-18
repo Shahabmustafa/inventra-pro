@@ -207,8 +207,8 @@ class _InventoryTrackListDetaolScreenOneState
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             InventoryDetailScreenTwo(
-                                              // id: snapshot
-                                              //     .data!.docs[index].id,
+                                              id: data.id,
+                                              carName: data["carName"],
                                               by_name_of_parts:
                                                   data['by_name_of_parts'],
                                               condition: data['condition'],
@@ -220,41 +220,17 @@ class _InventoryTrackListDetaolScreenOneState
                                               vinn: data['vinn'],
                                               year: data['year'],
                                               image12: data['image12'],
+                                              Receipt: data["search_list_by_size_of_tires"],
                                             )));
                               },
-                              child: Container(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: 10.w,
-                                          right: 10.w,
-                                          top: 10,
-                                          bottom: 10.h),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            '${data['by_name_of_parts']}',
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
-                                          const Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 15,
-                                            color: Colors.black,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 0.2,
-                                      color: Colors.grey,
-                                    ),
-                                  ],
+                              child: Card(
+                                elevation: 5,
+                                color: Colors.white,
+                                child: ListTile(
+                                  title: Text(data['carName']),
+                                  trailing: Icon(Icons.arrow_forward_ios,color: Colors.black,),
                                 ),
-                              ),
+                              )
                             );
                           });
                     }

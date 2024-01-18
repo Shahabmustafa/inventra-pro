@@ -13,6 +13,8 @@ class VehiclesellerDetailScreen extends StatefulWidget {
 }
 
 class VehiclesellerDetailScreenState extends State<VehiclesellerDetailScreen> {
+
+  final vin = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,29 +34,37 @@ class VehiclesellerDetailScreenState extends State<VehiclesellerDetailScreen> {
             ),
           ),
           SizedBox(height: 20.h),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: TextFormField(
+              style: TextStyle(color: Colors.black),
+              controller: vin,
+              onChanged: (String value) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                hintText: "Type Vin"
+              ),
+            ),
+          ),
           Container(
-              height: 540.h,
+              height: 300.h,
               width: 378.w,
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
               child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection("vehicleandSalllerInformaation")
+                      .collection("vehicleandSalllerInformaation").where("vinn",isEqualTo: vin.text.toString())
                       .snapshots(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting &&
-                        snapshot.data == null) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return ListView.builder(
+                    if(snapshot.hasData){
+                      return vin.text.isEmpty ?
+                      Center(child: Text("Please Search Your Vin",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)) :
+                      ListView.builder(
                           itemCount: snapshot.data?.docs.length,
                           itemBuilder: (context, index) {
                             DocumentSnapshot data = snapshot.data!.docs[index];
-
-                            {
-                              return InkWell(
+                            {return GestureDetector(
                                 onTap: () {
                                   Get.to(VehicleDetailScreenTwo(
                                     date: data['date'],
@@ -78,42 +88,23 @@ class VehiclesellerDetailScreenState extends State<VehiclesellerDetailScreen> {
                                     image11: data['image11'],
                                   ));
                                 },
-                                child: Container(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 10.w,
-                                            right: 10.w,
-                                            top: 10,
-                                            bottom: 10.h),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              '${data['name_of_seller']}',
-                                              style: const TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            const Icon(
-                                              Icons.arrow_forward_ios,
-                                              size: 15,
-                                              color: Colors.black,
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const Divider(
-                                        thickness: 0.2,
-                                        color: Colors.grey,
-                                      ),
-                                    ],
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Card(
+                                    elevation: 5,
+                                    color: Colors.white,
+                                    child: ListTile(
+                                      title: Text(data["vinn"]),
+                                      trailing: Icon(Icons.arrow_forward_ios,color: Colors.black,),
+                                    ),
                                   ),
                                 ),
                               );
                             }
                           });
+
+                    }else{
+                      return Center(child: CircularProgressIndicator());
                     }
                   })),
         ],

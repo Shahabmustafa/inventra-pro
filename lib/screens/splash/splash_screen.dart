@@ -19,22 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   isLogin(){
    if(FirebaseAuth.instance.currentUser != null){
      Timer(Duration(seconds: 3), () {
-       Timer(Duration(seconds: 3),(){
-         FirebaseFirestore.instance.collection("admin")
-             .doc("admin")
-             .get()
-             .then((DocumentSnapshot documentSnapshot){
-           if(documentSnapshot.exists){
-             if(documentSnapshot.get("email") == FirebaseAuth.instance.currentUser!.email){
-               Navigator.push(context, MaterialPageRoute(builder: (context) => AdminScreen()));
-             }else{
-               Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
-             }
-           }else{
-             print('Document does not exist on the database');
-           }
-         });
-       });
+       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
      });
    }else{
      Timer(Duration(seconds: 3),(){
