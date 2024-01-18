@@ -551,39 +551,29 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: 10.h),
             Center(
               child: InkWell(
-                onTap: () async {
+                onTap: () {
                   // print(admin);
                   setState(() {
                     loading = true;
                   });
-                  try {
-                    _auth
-                        .signInWithEmailAndPassword(
+                  if(emailController.text.toString() != admin.toString()){
+                    setState(() {
+                      loading = false;
+                    });
+                    Get.snackbar("Error","Your Email has not Match Admin Email");
+                  }else{
+                    _auth.signInWithEmailAndPassword(
                         email: emailController.text.toString(),
                         password: passwordController.text.toString())
                         .then((value) {
-                      if(emailController.text == admin){
-                        setState(() {
-                          loading = false;
-                          Get.to(const AdminScreen());
-                        });
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminScreen()));
-                      }else{
-                        Get.snackbar("Error", "Your Email is Incorrct");
-                        setState(() {
-                          loading = false;
-                          Get.to(const AdminScreen());
-                        });
-                      }
                       setState(() {
                         loading = false;
-                        Get.to(const AdminScreen());
                       });
-                    });
-                  } on FirebaseAuthException catch (e) {
-                    Utils().toastMessage(e.message.toString());
-                    setState(() {
-                      loading = false;
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminScreen()));
+                    }).onError((error, stackTrace){
+                      setState(() {
+                        loading = false;
+                      });
                     });
                   }
                 },
@@ -595,10 +585,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black),
                   child: Center(
                       child: loading
-                          ? const CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: Colors.white,
-                            )
+                          ? Center(
+                            child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                color: Colors.white,
+                              ),
+                          )
                           : Text(
                               'Login Admin',
                               style: TextStyle(

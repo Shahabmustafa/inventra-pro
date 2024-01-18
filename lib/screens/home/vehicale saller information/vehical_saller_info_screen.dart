@@ -33,7 +33,10 @@ class VehicleSllerInformationScreenState
   final modelController = TextEditingController();
   final vinnController = TextEditingController();
   bool loading = false;
-  static String admin = "admininventapro21@gmail.com";
+  String admin = "admininventapro21@gmail.com";
+
+  final auth =  FirebaseAuth.instance.currentUser!.email;
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,7 @@ class VehicleSllerInformationScreenState
                     Row(
                       children: [
                         const Spacer(),
-                        FirebaseAuth.instance.currentUser!.uid != admin ?
+                        auth.toString() == admin ?
                         InkWell(
                           onTap: () {
                             Get.to(const VehiclesellerDetailScreen());

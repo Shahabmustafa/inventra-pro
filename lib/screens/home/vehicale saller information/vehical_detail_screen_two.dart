@@ -50,6 +50,10 @@ class VehicleDetailScreenTwo extends StatefulWidget {
 }
 
 class _VehicleDetailScreenTwoState extends State<VehicleDetailScreenTwo> {
+
+  static String admin = "admininventapro21@gmail.com";
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
