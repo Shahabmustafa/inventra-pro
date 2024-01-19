@@ -1,19 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventra_pro/screens/home/admin/update_vehical_seller_information_screen.dart';
+import 'package:inventra_pro/screens/home/admin/update_inventry_seller_screen.dart';
+import 'package:inventra_pro/screens/home/inventory%20track%20list/inventory_detail_screen_two.dart';
+import 'package:inventra_pro/screens/home/inventory%20track%20list/inventory_track_list_detail_scree_one.dart';
 import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_detail_screen_two.dart';
 
-class SearchVinScreen extends StatefulWidget {
-  const SearchVinScreen({Key? key}) : super(key: key);
+class SearchInventryScreen extends StatefulWidget {
+  const SearchInventryScreen({Key? key}) : super(key: key);
 
   @override
-  State<SearchVinScreen> createState() => _SearchVinScreenState();
+  State<SearchInventryScreen> createState() => _SearchInventryScreenState();
 }
 
-class _SearchVinScreenState extends State<SearchVinScreen> {
+class _SearchInventryScreenState extends State<SearchInventryScreen> {
 
-  final vin = TextEditingController();
-  
+  final searchInventry = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +26,9 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
           children: [
             TextFormField(
               style: const TextStyle(color: Colors.black),
-              controller: vin,
+              controller: searchInventry,
               decoration: InputDecoration(
-                labelText: 'Search by VIN#1',
+                labelText: 'Search by Inventry',
                 prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.black,
@@ -39,14 +42,14 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
             ),
             Expanded(
               child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection("vehicleandSalllerInformaation")
-                    .where("vinn",isGreaterThanOrEqualTo: vin.text.toString()).snapshots(),
+                stream: FirebaseFirestore.instance.collection("inventoryTrackList")
+                    .where("carName",isGreaterThanOrEqualTo: searchInventry.text.toString()).snapshots(),
                 builder: (context,snapshot){
                   if(snapshot.hasData){
-                    return vin.text.isEmpty ?
+                    return searchInventry.text.isEmpty ?
                     Center(
                       child: Text(
-                        "Search Your Vin",style: TextStyle(
+                        "Search Your Inventry",style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         fontSize: 20,
@@ -58,17 +61,15 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                         return Card(
                           color: Colors.white,
                           child: ListTile(
-                            title: Text("Vin #"),
-                            subtitle: Text(snapshot.data!.docs[index]["vinn"]),
+                            title: Text("Car Name"),
+                            subtitle: Text(snapshot.data!.docs[index]["carName"]),
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 InkWell(
                                   onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateVehicalSellerInformation(
-                                      uid: snapshot.data!.docs[index].id,
-                                      sellerName: snapshot.data?.docs[index]["name_of_seller"],
-                                    ),
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateInventryInformation(
+                                      uid: snapshot.data!.docs[index].id,),
                                     ),
                                     );
                                   },
@@ -83,7 +84,7 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                                 InkWell(
                                   onTap: (){
                                     FirebaseFirestore.instance
-                                        .collection("vehicleandSalllerInformaation")
+                                        .collection("inventoryTrackList")
                                         .doc(snapshot.data!.docs[index].id).delete();
                                   },
                                   child: Icon(
@@ -94,26 +95,21 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                               ],
                             ),
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => VehicleDetailScreenTwo(
-                                image1: snapshot.data!.docs[index]["image1"],
-                                image2: snapshot.data!.docs[index]["image2"],
-                                image3: snapshot.data!.docs[index]["image3"],
-                                image4: snapshot.data!.docs[index]["image4"],
-                                image5: snapshot.data!.docs[index]["image5"],
-                                image6: snapshot.data!.docs[index]["image6"],
-                                image7: snapshot.data!.docs[index]["image7"],
-                                image8: snapshot.data!.docs[index]["image8"],
-                                image9: snapshot.data!.docs[index]["image9"],
-                                image10: snapshot.data!.docs[index]["image10"],
-                                image11: snapshot.data!.docs[index]["image11"],
-                                date: snapshot.data!.docs[index]["date"],
-                                address: snapshot.data!.docs[index]["address"],
-                                model: snapshot.data!.docs[index]["model"],
-                                make: snapshot.data!.docs[index]["make"],
-                                name_of_seller: snapshot.data!.docs[index]["name_of_seller"],
-                                vinn: snapshot.data!.docs[index]["vinn"],
-                                year: snapshot.data!.docs[index]["year"],
-                                purchase_Price: snapshot.data!.docs[index]["purchase_Price"],
+                              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                  InventoryDetailScreenTwo(
+                                    id: snapshot.data!.docs[index].id,
+                                    carName: snapshot.data!.docs[index]["carName"],
+                                    by_name_of_parts: snapshot.data!.docs[index]["by_name_of_parts"],
+                                    condition: snapshot.data!.docs[index]["condition"],
+                                    make: snapshot.data!.docs[index]["make"],
+                                    model: snapshot.data!.docs[index]["model"],
+                                    make2: snapshot.data!.docs[index]["make2"],
+                                    tires: snapshot.data!.docs[index]["tires"],
+                                    year: snapshot.data!.docs[index]["year"],
+                                    size: snapshot.data!.docs[index]["size"],
+                                    image12: snapshot.data!.docs[index]["image12"],
+                                    vinn: snapshot.data!.docs[index]["vinn"],
+                                    Receipt: snapshot.data!.docs[index]["search_list_by_size_of_tires"],
                               ),
                               ),
                               );

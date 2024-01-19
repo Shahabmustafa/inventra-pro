@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inventra_pro/screens/home/admin/admin_home_screen.dart';
 import 'package:inventra_pro/screens/home/admin/search_vin_screen.dart';
+import 'package:inventra_pro/screens/home/admin/serach_inventry_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/WidgetsViewModel1.dart';
 import '../../login/login_screen.dart';
@@ -48,7 +49,7 @@ class _AdminScreenState extends State<AdminScreen> {
     return Consumer2<WidgetsViewModel1, WidgetsViewModel1>(
       builder: (context, widgetProvider, signUpProvider, child) => SafeArea(
         child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Scaffold(
             appBar: AppBar(
               title: Text("Admin"),
@@ -84,7 +85,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 tabs: [
                   Text("Inventry Track"),
                   Text("VIN Search"),
-                  // Text("Inventry Search"),
+                  Text("Inventry Search"),
                 ],
               ),
             ),
@@ -93,6 +94,7 @@ class _AdminScreenState extends State<AdminScreen> {
               children: [
                 AdminHomeScreen(),
                 SearchVinScreen(),
+                SearchInventryScreen(),
               ],
             ),
 
