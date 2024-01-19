@@ -40,7 +40,7 @@ dependencies:
   http: ^0.13.5
   firebase_core: ^2.1.0
   firebase_auth: ^4.0.2
-  fluttertoast: ^8.1.1
+  fluttertoast: ^8.2.4
   cloud_firestore: ^4.3.1
   firebase_storage: ^11.0.10
   

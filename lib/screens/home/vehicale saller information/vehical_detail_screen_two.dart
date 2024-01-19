@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VehicleDetailScreenTwo extends StatefulWidget {
   String? address;
+  String? data;
   String? date;
   String? make;
   String? model;
@@ -43,7 +44,8 @@ class VehicleDetailScreenTwo extends StatefulWidget {
       this.image6,
       this.image7,
       this.image8,
-      this.image9});
+      this.image9,
+      });
 
   @override
   State<VehicleDetailScreenTwo> createState() => _VehicleDetailScreenTwoState();
