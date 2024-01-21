@@ -28,7 +28,7 @@ class _SearchInventryScreenState extends State<SearchInventryScreen> {
               style: const TextStyle(color: Colors.black),
               controller: searchInventry,
               decoration: InputDecoration(
-                labelText: 'Search by Inventry',
+                labelText: 'Search by Car',
                 prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.black,
@@ -49,7 +49,7 @@ class _SearchInventryScreenState extends State<SearchInventryScreen> {
                     return searchInventry.text.isEmpty ?
                     Center(
                       child: Text(
-                        "Search Your Inventry",style: TextStyle(
+                        "Search Your Car",style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         fontSize: 20,

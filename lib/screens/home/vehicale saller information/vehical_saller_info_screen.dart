@@ -33,12 +33,15 @@ class VehicleSllerInformationScreenState
   final modelController = TextEditingController();
   final vinnController = TextEditingController();
   bool loading = false;
-  String admin = "admininventapro21@gmail.com";
 
   final auth =  FirebaseAuth.instance.currentUser!.email;
-
+  String admin = "youfit13579@gmail.com";
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [

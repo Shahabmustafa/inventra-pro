@@ -85,7 +85,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 tabs: [
                   Text("Inventry Track"),
                   Text("VIN Search"),
-                  Text("Inventry Search"),
+                  Text("Search Car"),
                 ],
               ),
             ),
