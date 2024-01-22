@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Inventre",
+                "Inventra",
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.black,
