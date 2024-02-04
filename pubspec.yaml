@@ -1,4 +1,5 @@
-name: inventra_pro
+name: InventaPro
+
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -47,6 +48,7 @@ dependencies:
   image_picker: ^0.8.7+1
   file_picker: ^5.2.7
   provider: ^6.0.5
+  cached_network_image: ^3.3.1
 
 
 dev_dependencies:

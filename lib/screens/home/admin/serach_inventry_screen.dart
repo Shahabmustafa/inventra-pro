@@ -1,10 +1,7 @@
+import 'package:InventaPro/screens/home/admin/update_inventry_seller_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:inventra_pro/screens/home/admin/update_vehical_seller_information_screen.dart';
-import 'package:inventra_pro/screens/home/admin/update_inventry_seller_screen.dart';
-import 'package:inventra_pro/screens/home/inventory%20track%20list/inventory_detail_screen_two.dart';
-import 'package:inventra_pro/screens/home/inventory%20track%20list/inventory_track_list_detail_scree_one.dart';
-import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_detail_screen_two.dart';
+import '../inventory track list/inventory_detail_screen_two.dart';
 
 class SearchInventryScreen extends StatefulWidget {
   const SearchInventryScreen({Key? key}) : super(key: key);

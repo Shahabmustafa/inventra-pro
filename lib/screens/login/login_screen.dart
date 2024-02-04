@@ -5,11 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inventra_pro/screens/home/admin/admin_screen.dart';
-import 'package:inventra_pro/screens/home/home_screen.dart';
-import 'package:inventra_pro/screens/signup/signup_screen.dart';
 
 import '../home/forgotpassword_screen.dart';
+import '../home/home_screen.dart';
+import '../signup/signup_screen.dart';
 import '../utils/utils.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,14 +42,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Inventa',
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 40.sp,
-                      fontWeight: FontWeight.w400),
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  ' Pro',
+                  'Pro',
                   style: TextStyle(
                       color: Colors.orange,
-                      fontSize: 22.sp,
+                      fontSize: 40,
                       fontWeight: FontWeight.w700),
                 )
               ],

@@ -1,8 +1,8 @@
+import 'package:InventaPro/screens/home/vehicale%20saller%20information/vehical_detail_screen_two.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_detail_screen_two.dart';
 
 class VehiclesellerDetailScreen extends StatefulWidget {
   const VehiclesellerDetailScreen({super.key});

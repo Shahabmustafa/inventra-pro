@@ -1,17 +1,16 @@
+import 'package:InventaPro/screens/home/admin/reset_email.dart';
+import 'package:InventaPro/screens/home/admin/search_vin_screen.dart';
+import 'package:InventaPro/screens/home/admin/serach_inventry_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:inventra_pro/screens/home/admin/admin_home_screen.dart';
-import 'package:inventra_pro/screens/home/admin/search_vin_screen.dart';
-import 'package:inventra_pro/screens/home/admin/serach_inventry_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../provider/WidgetsViewModel1.dart';
 import '../../login/login_screen.dart';
 import '../home_screen.dart';
 import '../inventory track list/inventory_track_list_detail_scree_one.dart';
+import 'admin_home_screen.dart';
 import 'email_verification_screen.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -97,7 +96,12 @@ class _AdminScreenState extends State<AdminScreen> {
                 SearchInventryScreen(),
               ],
             ),
-
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ResetEmail()));
+              },
+              label: Text("Reset Email"),
+            ),
           ),
         ),
        ),

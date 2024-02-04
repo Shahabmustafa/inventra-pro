@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:InventaPro/screens/home/vehicale%20saller%20information/vehical_saller_details_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:inventra_pro/provider/WidgetsViewModel1.dart';
-import 'package:inventra_pro/screens/home/home_screen.dart';
-import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_saller_details_screen.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
+
+import '../../../provider/WidgetsViewModel1.dart';
+import '../home_screen.dart';
 
 class VehicleSllerInformationScreen extends StatefulWidget {
   const VehicleSllerInformationScreen({super.key});

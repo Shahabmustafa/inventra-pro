@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:inventra_pro/screens/home/admin/admin_screen.dart';
-import 'package:inventra_pro/screens/home/home_screen.dart';
-import 'package:inventra_pro/screens/login/login_screen.dart';
+
+import '../home/home_screen.dart';
+import '../login/login_screen.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Inventra",
+                "Inventa",
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.black,
@@ -54,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   fontSize: 40,
-                  color: Color(0xFFffc500),
+                  color: Colors.orange,
                   fontWeight: FontWeight.w600,
                 ),
               ),

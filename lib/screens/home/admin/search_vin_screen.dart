@@ -1,7 +1,8 @@
+import 'package:InventaPro/screens/home/admin/update_vehical_seller_information_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:inventra_pro/screens/home/admin/update_vehical_seller_information_screen.dart';
-import 'package:inventra_pro/screens/home/vehicale%20saller%20information/vehical_detail_screen_two.dart';
+import '../vehicale saller information/vehical_detail_screen_two.dart';
 
 class SearchVinScreen extends StatefulWidget {
   const SearchVinScreen({Key? key}) : super(key: key);
@@ -13,8 +14,8 @@ class SearchVinScreen extends StatefulWidget {
 class _SearchVinScreenState extends State<SearchVinScreen> {
 
   final vin = TextEditingController();
-  
-  @override
+  var search = "";
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -33,14 +34,15 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
               ),
               onChanged: (String value){
                 setState(() {
-
+                  search = value;
                 });
               },
             ),
             Expanded(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance.collection("vehicleandSalllerInformaation")
-                    .where("vinn",isGreaterThanOrEqualTo: vin.text.toString()).snapshots(),
+              child:
+              StreamBuilder(
+                stream: FirebaseFirestore.instance.collection("vehicleandSalllerInformaation").orderBy("make")
+                    .startAt([search]).endAt([search + "\uf8ff"]).snapshots(),
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     return vin.text.isEmpty ?
@@ -56,9 +58,15 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context,index){
                         return Card(
+                          // key: snapshot.data!.docs[index].id,
                           color: Colors.white,
                           child: ListTile(
-                            title: Text("Vin #"),
+                            leading: CachedNetworkImage(
+                              imageUrl: snapshot.data!.docs[index]["image1"],
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            ),
+                            title: Text(snapshot.data!.docs[index]["make"]),
                             subtitle: Text(snapshot.data!.docs[index]["vinn"]),
                             trailing: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

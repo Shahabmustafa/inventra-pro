@@ -356,56 +356,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ),
                   ),
                 ),
-                // SizedBox(height: 10.h),
-                // Divider(
-                //   height: 1.h,
-                //   color: Colors.black,
-                // ),
-                // SizedBox(height: 10.h),
-                // Center(
-                //   child: Text(
-                //     'Change Admin',
-                //     style: TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 20.sp,
-                //         fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // SizedBox(height: 20.h),
-                // TextFormField(
-                //   style: const TextStyle(color: Colors.black),
-                //   controller: _emailController,
-                //   decoration: InputDecoration(
-                //       labelText: 'Email',
-                //   ),
-                // ),
-                // SizedBox(height: 10.h),
-                // InkWell(
-                //   onTap: (){
-                //     if(_emailController.text.isEmpty){
-                //       Get.snackbar("Error", "Please Enter Your New Email");
-                //     }else{
-                //       resetEmail(_emailController.text.trim());
-                //     }
-                //   },
-                //   child: Container(
-                //     height: 40.h,
-                //     width: 350.w,
-                //     decoration: BoxDecoration(
-                //         color: Colors.black,
-                //         borderRadius: BorderRadius.circular(10.r)),
-                //     child: Center(
-                //       child: loading ? Center(child: CircularProgressIndicator(color: Colors.white,)) : Text(
-                //         'Send',
-                //         style: TextStyle(
-                //             fontSize: 18.sp, fontWeight: FontWeight.bold),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //     height:
-                //         MediaQuery.of(context).viewInsets.bottom + 20),
+
               ],
             ),
           ),
