@@ -72,6 +72,7 @@ class _ResetEmailState extends State<ResetEmail> {
               height: 10,
             ),
             TextFormField(
+              obscureText: true,
               controller: password,
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
