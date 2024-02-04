@@ -16,6 +16,8 @@ class InventoryDetailScreenTwo extends StatefulWidget {
   String? vinn;
   String? year;
   String? image12;
+  String? image13;
+  String? image14;
   String Receipt;
   InventoryDetailScreenTwo(
       {super.key,
@@ -31,6 +33,8 @@ class InventoryDetailScreenTwo extends StatefulWidget {
       this.vinn,
       this.year,
       this.image12,
+      this.image13,
+      this.image14,
        required this.Receipt,
       });
 
@@ -139,41 +143,48 @@ class _InventoryDetailScreenTwoState extends State<InventoryDetailScreenTwo> {
                 trailing: Text(widget.make2.toString()),
               ),
             ),
-            Center(
-              child: Container(
-                height: 100.h,
-                width: 100.w,
-                decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.image12.toString())),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Center(
+                  child: Container(
+                    height: 100.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(widget.image12.toString())),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    height: 100.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(widget.image13.toString())
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    height: 100.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Image(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(widget.image14.toString())),
+                  ),
+                ),
+              ],
             ),
-            // SizedBox(height: 5.h),
-            // Center(
-            //   child: InkWell(
-            //     onTap: () {
-        
-            //     },
-            //     child: Container(
-            //       height: 40.h,
-            //       width: 130.w,
-            //       decoration: BoxDecoration(
-            //           color: Colors.green,
-            //           borderRadius: BorderRadius.circular(10.r)),
-            //       child: Center(
-            //         child: Text(
-            //           'Send',
-            //           style:
-            //               TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-        
           ],
         ),
       ),

@@ -220,6 +220,8 @@ class _InventoryTrackListDetaolScreenOneState
                                               vinn: data['vinn'],
                                               year: data['year'],
                                               image12: data['image12'],
+                                              image13: data['image13'],
+                                              image14: data['image14'],
                                               Receipt: data["search_list_by_size_of_tires"],
                                             )));
                               },

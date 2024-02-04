@@ -979,7 +979,7 @@ class WidgetsViewModel1 with ChangeNotifier {
 
 
   void cameraPicker() async {
-    image13 = await _picker13.pickImage(source: ImageSource.camera);
+    image13 = await _picker13.pickImage(source: ImageSource.gallery);
     _imageFile13 = File(image13!.path);
     notifyListeners();
   }
@@ -1013,7 +1013,7 @@ class WidgetsViewModel1 with ChangeNotifier {
 
 
   void cameraPicker14() async {
-    image14 = await _picker14.pickImage(source: ImageSource.camera);
+    image14 = await _picker14.pickImage(source: ImageSource.gallery);
     _imageFile14 = File(image14!.path);
     notifyListeners();
   }

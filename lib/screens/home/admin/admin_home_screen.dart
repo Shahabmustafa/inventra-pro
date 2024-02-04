@@ -355,7 +355,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             'make2': make2Controller.text.trim(),
                             'image12': widgetProvider.imageUrlDownload12,
                             "image13" : widgetProvider.imageUrlDownload13,
-                            "image14" : widgetProvider.imageFile14,
+                            "image14" : widgetProvider.imageUrlDownload13,
                             ////////////////
                           }).then(
                                 (value) {

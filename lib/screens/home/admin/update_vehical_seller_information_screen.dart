@@ -68,6 +68,147 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
+              Container(
+                height: 350,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection("vehicleandSalllerInformaation").doc(widget.uid).snapshots(),
+                  builder: (context,snapshot){
+                    if(snapshot.hasData){
+                      Map<String,dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
+                     return Column(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                       children: [
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: [
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image1"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image2"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image3"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: [
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image4"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image5"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image6"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: [
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image7"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image8"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                             Center(
+                               child: Container(
+                                 height: 100,
+                                 width: 100,
+                                 decoration: BoxDecoration(
+                                     image: DecorationImage(
+                                         image: NetworkImage(data["image9"]),
+                                         fit: BoxFit.cover
+                                     )
+                                 ),
+                               ),
+                             ),
+                           ],
+                         ),
+                       ],
+                     );
+                    }else{
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
               TextFormField(
                 style: TextStyle(color: Colors.black),
                 controller: sellerName,
