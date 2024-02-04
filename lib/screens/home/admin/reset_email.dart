@@ -12,17 +12,34 @@ class ResetEmail extends StatefulWidget {
 class _ResetEmailState extends State<ResetEmail> {
 
   final resetEmail = TextEditingController();
+  final password = TextEditingController();
   final auth = FirebaseAuth.instance.currentUser;
+  bool loading = false;
   resetYourEmail()async{
+    setState(() {
+      loading = true;
+    });
     try {
-      final user = FirebaseAuth.instance.currentUser;
-      if(user!.emailVerified){
-        user.sendEmailVerification();
-      }else{
-        user.updateEmail("shahabmustafa57@gmail.com");
-      }
+      final user = FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: resetEmail.text,
+        password: password.text,
+      ).then((value){
+        setState(() {
+          loading = false;
+        });
+        FirebaseFirestore.instance.collection("admin").doc("admin").update({
+          "email" : resetEmail.text,
+        });
+      }).onError((error, stackTrace){
+        setState(() {
+          loading = false;
+        });
+      });
     } catch (e) {
       print("Error updating email: $e");
+      setState(() {
+        loading = false;
+      });
       // Handle errors here
     }
   }
@@ -42,12 +59,23 @@ class _ResetEmailState extends State<ResetEmail> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextFormField(
               controller: resetEmail,
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: "Reset Email",
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: password,
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                hintText: "Password",
               ),
             ),
             SizedBox(
@@ -62,7 +90,13 @@ class _ResetEmailState extends State<ResetEmail> {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Center(
+                child: loading ?
+                Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ) :
+                Center(
                   child: Text(
                     "Reset Email",
                     style: TextStyle(

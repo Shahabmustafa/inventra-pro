@@ -61,10 +61,18 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                           // key: snapshot.data!.docs[index].id,
                           color: Colors.white,
                           child: ListTile(
-                            leading: CachedNetworkImage(
-                              imageUrl: snapshot.data!.docs[index]["image1"],
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
+                            leading: Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachedNetworkImage(
+                                  height: 50,
+                                  width: 50,
+                                  fit: BoxFit.cover,
+                                  imageUrl: snapshot.data!.docs[index]["image6"],
+                                  placeholder: (context, url) => CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                ),
+                              ),
                             ),
                             title: Text(snapshot.data!.docs[index]["make"]),
                             subtitle: Text(snapshot.data!.docs[index]["vinn"]),
