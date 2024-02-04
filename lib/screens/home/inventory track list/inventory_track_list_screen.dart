@@ -272,7 +272,7 @@ class _InventoryTrackListScreenState extends State<InventoryTrackListScreen> {
                                               : null,
                                         ),
                                       ),
-                                    ))
+                                    )),
                               ],
                             ),
                           ),

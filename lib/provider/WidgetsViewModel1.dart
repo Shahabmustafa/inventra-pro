@@ -895,6 +895,11 @@ class WidgetsViewModel1 with ChangeNotifier {
   ///
   File? _imageFile12;
   File? get imageFile12 => _imageFile12;
+  String? _imageUrlDownload12;
+  String? get imageUrlDownload12 => _imageUrlDownload12;
+  XFile? image12;
+  ImagePicker _picker12 = ImagePicker();
+  Reference? task112;
 
   void selectGalleryImage12() async {
     image12 = await _picker12.pickImage(source: ImageSource.gallery);
@@ -907,13 +912,6 @@ class WidgetsViewModel1 with ChangeNotifier {
     _imageFile12 = File(image12!.path);
     notifyListeners();
   }
-
-  String? _imageUrlDownload12;
-  String? get imageUrlDownload12 => _imageUrlDownload12;
-
-  XFile? image12;
-  ImagePicker _picker12 = ImagePicker();
-  Reference? task112;
 
   Future uploadImage12(BuildContext context) async {
     if (imageFile12 == null) {
@@ -930,6 +928,8 @@ class WidgetsViewModel1 with ChangeNotifier {
     _imageUrlDownload12 = await task112!.getDownloadURL();
     print('Download-link: $imageUrlDownload12');
   }
+
+  ///////////////
 
   File? _file12;
   File? get file12 => _file12;
@@ -964,4 +964,76 @@ class WidgetsViewModel1 with ChangeNotifier {
     _fileUrlDownload12 = await task111112!.getDownloadURL();
     print('Download-link: $imageUrlDownload12');
   }
+
+
+
+
+  File? _imageFile13;
+  File? get imageFile13 => _imageFile13;
+  String? _imageUrlDownload13;
+  String? get imageUrlDownload13 => _imageUrlDownload13;
+  XFile? image13;
+  ImagePicker _picker13 = ImagePicker();
+  Reference? task13;
+
+
+
+  void cameraPicker() async {
+    image13 = await _picker13.pickImage(source: ImageSource.camera);
+    _imageFile13 = File(image13!.path);
+    notifyListeners();
+  }
+
+  Future uploadImage13(BuildContext context) async {
+    if (imageFile13 == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Please Upload your Picture")));
+      notifyListeners();
+    }
+
+    String imageName13 = basename(_imageFile13!.path);
+    final destination13 = 'users/images/$imageName13';
+    task13 = FirebaseStorage.instance.ref(destination13);
+
+    await task13!.putFile(File(imageFile13!.path));
+    _imageUrlDownload13 = await task13!.getDownloadURL();
+    print('Download-link: $imageUrlDownload13');
+  }
+
+
+
+  File? _imageFile14;
+  File? get imageFile14 => _imageFile14;
+  String? _imageUrlDownload14;
+  String? get imageUrlDownload14 => _imageUrlDownload14;
+  XFile? image14;
+  ImagePicker _picker14 = ImagePicker();
+  Reference? task14;
+
+
+
+  void cameraPicker14() async {
+    image14 = await _picker14.pickImage(source: ImageSource.camera);
+    _imageFile14 = File(image14!.path);
+    notifyListeners();
+  }
+
+  Future uploadImage14(BuildContext context) async {
+    if (imageFile14 == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Please Upload your Picture")));
+      notifyListeners();
+    }
+
+    String imageName14 = basename(_imageFile14!.path);
+    final destination14 = 'users/images/$imageName14';
+    task14 = FirebaseStorage.instance.ref(destination14);
+
+    await task14!.putFile(File(imageFile14!.path));
+    _imageUrlDownload14 = await task14!.getDownloadURL();
+    print('Download-link: $imageUrlDownload14');
+  }
+
+
+
 }

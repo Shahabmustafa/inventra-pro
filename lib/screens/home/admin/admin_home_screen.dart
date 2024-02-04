@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -230,55 +232,87 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ),
                   ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    widgetProvider.selectGalleryImage12();
-                    // selectGalleryImage();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Center(
-                      child: Container(
-                        height: 140,
-                        width: 120,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: CircleAvatar(
-                                  radius: 80,
-                                  backgroundColor: Colors.white,
-                                  child: CircleAvatar(
-                                    radius: 75,
-                                    backgroundColor: Colors.grey.shade400,
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                      const Color(0xfffe661b),
-                                      radius: 72,
-                                      backgroundImage:
-                                      widgetProvider.imageFile12 ==
-                                          null
-                                          ? null
-                                          : FileImage(widgetProvider
-                                          .imageFile12!),
-                                      child: widgetProvider.imageFile12 ==
-                                          null
-                                          ? const Icon(
-                                        Icons.person,
-                                        size: 80,
-                                        color: Color(0xFF3c3966),
-                                      )
-                                          : null,
-                                    ),
-                                  ),
-                                ))
-                          ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          widgetProvider.selectGalleryImage12();
+                        },
+                        child: CircleAvatar(
+                          backgroundColor:
+                          const Color(0xfffe661b),
+                          radius: 50,
+                          backgroundImage:
+                          widgetProvider.imageFile12 ==
+                              null
+                              ? null
+                              : FileImage(widgetProvider
+                              .imageFile12!),
+                          child: widgetProvider.imageFile12 ==
+                              null
+                              ? const Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Color(0xFF3c3966),
+                          )
+                              : null,
                         ),
                       ),
-                    ),
+                      InkWell(
+                        onTap: (){
+                          widgetProvider.cameraPicker();
+                        },
+                        child: CircleAvatar(
+                          backgroundColor:
+                          const Color(0xfffe661b),
+                          radius: 50,
+                          backgroundImage:
+                          widgetProvider.imageFile13 ==
+                              null
+                              ? null
+                              : FileImage(widgetProvider.imageFile13!),
+                          child: widgetProvider.imageFile13 ==
+                              null
+                              ? const Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Color(0xFF3c3966),
+                          )
+                              : null,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          widgetProvider.cameraPicker14();
+                        },
+                        child: CircleAvatar(
+                          backgroundColor:
+                          const Color(0xfffe661b),
+                          radius: 50,
+                          backgroundImage:
+                          widgetProvider.imageFile14 ==
+                              null
+                              ? null
+                              : FileImage(widgetProvider
+                              .imageFile14!),
+                          child: widgetProvider.imageFile14 ==
+                              null
+                              ? const Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Color(0xFF3c3966),
+                          )
+                              : null,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
 
                 ////////
@@ -297,6 +331,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             approve = true;
                           });
                           await widgetProvider.uploadImage12(context);
+                          await widgetProvider.uploadImage13(context);
+                          await widgetProvider.uploadImage14(context);
                           await Firebase.initializeApp();
                           return await FirebaseFirestore.instance
                               .collection('inventoryTrackList')
@@ -317,8 +353,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             'condition':
                             conditionController.text.trim(),
                             'make2': make2Controller.text.trim(),
-                            'image12':
-                            widgetProvider.imageUrlDownload12,
+                            'image12': widgetProvider.imageUrlDownload12,
+                            "image13" : widgetProvider.imageUrlDownload13,
+                            "image14" : widgetProvider.imageFile14,
                             ////////////////
                           }).then(
                                 (value) {
