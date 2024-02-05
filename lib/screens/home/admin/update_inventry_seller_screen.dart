@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+
+import '../../../provider/WidgetsViewModel1.dart';
 
 class UpdateInventryInformation extends StatefulWidget {
   UpdateInventryInformation({Key? key,required this.uid}) : super(key: key);
@@ -69,425 +74,305 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
         title: Text("Update Vehical"),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Form(
-                key: _key,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: partName,
-                      decoration: InputDecoration(
-                        label: Text("Part Name"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: carName,
-                      decoration: InputDecoration(
-                        label: Text("Car Name"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: condition,
-                      decoration: InputDecoration(
-                        label: Text("Condition"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: make,
-                      decoration: InputDecoration(
-                        label: Text("Make"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: makes1,
-                      decoration: InputDecoration(
-                        label: Text("Make 1"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: make2,
-                      decoration: InputDecoration(
-                        label: Text("Make 2"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: model,
-                      decoration: InputDecoration(
-                        label: Text("Model"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: receipt,
-                      decoration: InputDecoration(
-                        label: Text("Receipt"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: size,
-                      decoration: InputDecoration(
-                        label: Text("Size"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: tires,
-                      decoration: InputDecoration(
-                        label: Text("Tires"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: vinn,
-                      decoration: InputDecoration(
-                        label: Text("VIN"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      style: TextStyle(color: Colors.black),
-                      controller: year,
-                      decoration: InputDecoration(
-                        label: Text("Year"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 40.h,
-                width: 350.w,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: Center(
-                  child: InkWell(
-                    onTap: () async {
-                      if(_key.currentState!.validate()){
-                        setState(() {
-                          loading = true;
-                        });
-                        try{
-                          await FirebaseFirestore.instance
-                              .collection("inventoryTrackList")
-                              .doc(widget.uid).update({
-                            "by_name_of_parts" : partName.text,
-                            "carName" : carName.text,
-                            "condition" : condition.text,
-                            "make" : make.text,
-                            "make1" : makes1.text,
-                            "make2" : make2.text,
-                            "model" : model.text,
-                            "search_list_by_size_of_tires" : receipt.text,
-                            "size" : size.text,
-                            "tires" : tires.text,
-                            "vinn" : vinn.text,
-                            "year" : year.text,
-                          }).then((value){
-                            print("asaas");
-                            Navigator.pop(context);
-                            setState(() {
-                              loading = false;
-                            });
-                          }).onError((error, stackTrace){
-                            setState(() {
-                              print(error);
-                              loading = false;
-                            });
-                          });
-                        }catch(e){
-                          setState(() {
-                            loading = false;
-                          });
-                        }
-                      }else{
-                        print("Enter");
-                      }
-                    },
-                    child: loading ?
-                    Center(child: CircularProgressIndicator(color: Colors.white,)) :
-                    Text(
-                      'Update',
-                      style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold),
+      body: Consumer<WidgetsViewModel1>(
+        builder: (context,value,child){
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance.collection("inventoryTrackList").doc(widget.uid).snapshots(),
+                      builder: (context,snapshot){
+                        Map<String,dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
+                        return Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: (){
+                                    value.selectGalleryImage12();
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: Colors.black,),
+                                          image: value.imageFile12 ==
+                                              null ?
+                                          DecorationImage(
+                                              image: NetworkImage(data["image12"]),
+                                              fit: BoxFit.cover
+                                          ) : DecorationImage(
+                                              image: FileImage(File(value.imageFile12!.path)),
+                                              fit: BoxFit.cover
+                                          )
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    value.cameraPicker();
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: Colors.black,),
+                                          image: value.imageFile13 ==
+                                              null ?
+                                          DecorationImage(
+                                              image: NetworkImage(data["image13"]),
+                                              fit: BoxFit.cover
+                                          ) : DecorationImage(
+                                              image: FileImage(File(value.imageFile13!.path)),
+                                              fit: BoxFit.cover
+                                          )
+                                      ),                                       ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
+                                    value.cameraPicker14();
+                                  },
+                                  child: Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(100),
+                                          border: Border.all(color: Colors.black,),
+                                          image: value.imageFile14 ==
+                                              null ?
+                                          DecorationImage(
+                                              image: NetworkImage(data["image14"]),
+                                              fit: BoxFit.cover
+                                          ) : DecorationImage(
+                                              image: FileImage(File(value.imageFile14!.path)),
+                                              fit: BoxFit.cover
+                                          )
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    )
+                  ),
+                  Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: partName,
+                          decoration: InputDecoration(
+                            label: Text("Part Name"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: carName,
+                          decoration: InputDecoration(
+                            label: Text("Car Name"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: condition,
+                          decoration: InputDecoration(
+                            label: Text("Condition"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: make,
+                          decoration: InputDecoration(
+                            label: Text("Make"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: makes1,
+                          decoration: InputDecoration(
+                            label: Text("Make 1"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: make2,
+                          decoration: InputDecoration(
+                            label: Text("Make 2"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: model,
+                          decoration: InputDecoration(
+                            label: Text("Model"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: receipt,
+                          decoration: InputDecoration(
+                            label: Text("Receipt"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: size,
+                          decoration: InputDecoration(
+                            label: Text("Size"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: tires,
+                          decoration: InputDecoration(
+                            label: Text("Tires"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: vinn,
+                          decoration: InputDecoration(
+                            label: Text("VIN"),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          style: TextStyle(color: Colors.black),
+                          controller: year,
+                          decoration: InputDecoration(
+                            label: Text("Year"),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 40.h,
+                    width: 350.w,
+                    decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Center(
+                      child: InkWell(
+                        onTap: () async {
+                          if(_key.currentState!.validate()){
+                            setState(() {
+                              loading = true;
+                            });
+                            try{
+                              await value.uploadImage(context);
+                              await value.uploadImage(context);
+                              await value.uploadImage(context);
+                              await FirebaseFirestore.instance
+                                  .collection("inventoryTrackList")
+                                  .doc(widget.uid).update({
+                                "by_name_of_parts" : partName.text,
+                                "carName" : carName.text,
+                                "condition" : condition.text,
+                                "make" : make.text,
+                                "make1" : makes1.text,
+                                "make2" : make2.text,
+                                "model" : model.text,
+                                "search_list_by_size_of_tires" : receipt.text,
+                                "size" : size.text,
+                                "tires" : tires.text,
+                                "vinn" : vinn.text,
+                                "year" : year.text,
+                                "image12" : value.imageUrlDownload12,
+                                "image13" : value.imageUrlDownload13,
+                                "image14" : value.imageUrlDownload14,
+                              }).then((value){
+                                print("asaas");
+                                Navigator.pop(context);
+                                setState(() {
+                                  loading = false;
+                                });
+                              }).onError((error, stackTrace){
+                                setState(() {
+                                  print(error);
+                                  loading = false;
+                                });
+                              });
+                            }catch(e){
+                              setState(() {
+                                loading = false;
+                              });
+                            }
+                          }else{
+                            print("Enter");
+                          }
+                        },
+                        child: loading ?
+                        Center(child: CircularProgressIndicator(color: Colors.white,)) :
+                        Text(
+                          'Update',
+                          style: TextStyle(
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
-      // SingleChildScrollView(
-      //     child: StreamBuilder(
-      //       stream: FirebaseFirestore.instance.collection("inventoryTrackList").doc(widget.uid).snapshots(),
-      //       builder: (context,snapshot){
-      //         if(snapshot.hasData){
-      //           Map<String,dynamic>? data = snapshot.data?.data() as Map<String,dynamic>?;
-      //           carName = TextEditingController(text: data?["carName"]);
-      //           partName = TextEditingController(text: data?["by_name_of_parts"]);
-      //           year = TextEditingController(text: data?["year"]);
-      //           make = TextEditingController(text: data?["make"]);
-      //           model = TextEditingController(text: data?["model"]);
-      //           vinn = TextEditingController(text: data?["vinn"]);
-      //           tires = TextEditingController(text: data?["tires"]);
-      //           receipt = TextEditingController(text: data?["search_list_by_size_of_tires"]);
-      //           size = TextEditingController(text: data?["size"]);
-      //           condition = TextEditingController(text: data?["condition"]);
-      //           makes1 = TextEditingController(text: data?["make1"]);
-      //           make2 = TextEditingController(text: data?["make2"]);
-      //           return Padding(
-      //             padding: const EdgeInsets.symmetric(horizontal: 10),
-      //             child: Column(
-      //               children: [
-      //                 Form(
-      //                   key: _key,
-      //                   child: Column(
-      //                     children: [
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: this.partName,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Part Name"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: carName,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Car Name"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: condition,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Condition"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: make,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Make"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: makes1,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Make 1"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: make2,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Make 2"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: model,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Model"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: receipt,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Receipt"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: size,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Size"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: tires,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Tires"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: vinn,
-      //                         decoration: InputDecoration(
-      //                           label: Text("VIN"),
-      //                         ),
-      //                       ),
-      //                       SizedBox(
-      //                         height: 10,
-      //                       ),
-      //                       TextFormField(
-      //                         style: TextStyle(color: Colors.black),
-      //                         controller: year,
-      //                         decoration: InputDecoration(
-      //                           label: Text("Year"),
-      //                         ),
-      //                       ),
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Container(
-      //                   height: 40.h,
-      //                   width: 350.w,
-      //                   decoration: BoxDecoration(
-      //                       color: Colors.black,
-      //                       borderRadius: BorderRadius.circular(10.r)),
-      //                   child: Center(
-      //                     child: InkWell(
-      //                       onTap: () async {
-      //                        if(_key.currentState!.validate()){
-      //                          setState(() {
-      //                            loading = true;
-      //                          });
-      //                          try{
-      //                            await FirebaseFirestore.instance
-      //                                .collection("inventoryTrackList")
-      //                                .doc(widget.uid).update({
-      //                              "by_name_of_parts" : partName.text,
-      //                              "carName" : carName.text,
-      //                              "condition" : condition.text,
-      //                              "make" : make.text,
-      //                              "make1" : makes1.text,
-      //                              "make2" : make2.text,
-      //                              "model" : model.text,
-      //                              "search_list_by_size_of_tires" : receipt.text,
-      //                              "size" : size.text,
-      //                              "tires" : tires.text,
-      //                              "vinn" : vinn.text,
-      //                              "year" : year.text,
-      //                            }).then((value){
-      //                              print("asaas");
-      //                              Navigator.pop(context);
-      //                              setState(() {
-      //                                loading = false;
-      //                              });
-      //                            }).onError((error, stackTrace){
-      //                              setState(() {
-      //                                print(error);
-      //                                loading = false;
-      //                              });
-      //                            });
-      //                          }catch(e){
-      //                            setState(() {
-      //                              loading = false;
-      //                            });
-      //                          }
-      //                        }else{
-      //                          print("Enter");
-      //                        }
-      //                       },
-      //                       child: loading ?
-      //                       Center(child: CircularProgressIndicator(color: Colors.white,)) :
-      //                       Text(
-      //                         'Update',
-      //                         style: TextStyle(
-      //                             fontSize: 18.sp,
-      //                             fontWeight: FontWeight.bold),
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ],
-      //             ),
-      //           );
-      //         }else{
-      //           return Center(child: CircularProgressIndicator());
-      //         }
-      //       },
-      //     )
-      // ),
+            ),
+          );
+        },
+      )
     );
   }
 }
