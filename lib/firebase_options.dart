@@ -26,7 +26,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -50,19 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBpSC6zYZn6ltmqxBqtQpHc39dY-ANLawI',
-    appId: '1:379279122608:android:49a74170ad64de413d9b75',
-    messagingSenderId: '379279122608',
-    projectId: 'test-da5ba',
-    storageBucket: 'test-da5ba.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAoywWYGcVwSrXw-GlxvTQVlfCZj9pe0x0',
-    appId: '1:379279122608:ios:21c2da2ff35562363d9b75',
-    messagingSenderId: '379279122608',
-    projectId: 'test-da5ba',
-    storageBucket: 'test-da5ba.appspot.com',
-    iosBundleId: 'com.example.inventraPro',
+    apiKey: 'AIzaSyD-prNAN4Oeu6NpLsXiHAR1IkJ70TkBeHc',
+    appId: '1:464812919277:android:ac8efacfe586432146bfe4',
+    messagingSenderId: '464812919277',
+    projectId: 'inventa-pro',
+    storageBucket: 'inventa-pro.appspot.com',
   );
 }
