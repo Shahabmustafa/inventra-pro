@@ -14,6 +14,8 @@ class _SearchInventryScreenState extends State<SearchInventryScreen> {
 
   final searchInventry = TextEditingController();
 
+  var search = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +35,15 @@ class _SearchInventryScreenState extends State<SearchInventryScreen> {
               ),
               onChanged: (String value){
                 setState(() {
-
+                  search = value;
                 });
               },
             ),
             Expanded(
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance.collection("inventoryTrackList")
-                    .where("carName",isGreaterThanOrEqualTo: searchInventry.text.toString()).snapshots(),
+                    .orderBy("carName")
+                    .startAt([search]).endAt([search + "\uf8ff"]).snapshots(),
                 builder: (context,snapshot){
                   if(snapshot.hasData){
                     return searchInventry.text.isEmpty ?

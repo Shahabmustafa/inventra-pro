@@ -314,9 +314,9 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                               loading = true;
                             });
                             try{
-                              await value.uploadImage(context);
-                              await value.uploadImage(context);
-                              await value.uploadImage(context);
+                              await value.uploadImage12(context);
+                              await value.uploadImage13(context);
+                              await value.uploadImage14(context);
                               await FirebaseFirestore.instance
                                   .collection("inventoryTrackList")
                                   .doc(widget.uid).update({

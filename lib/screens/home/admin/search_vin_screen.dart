@@ -14,7 +14,9 @@ class SearchVinScreen extends StatefulWidget {
 class _SearchVinScreenState extends State<SearchVinScreen> {
 
   final vin = TextEditingController();
+  final make = TextEditingController();
   var search = "";
+  var search1 = "";
 @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,38 +24,59 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
         child: Column(
           children: [
-            TextFormField(
-              style: const TextStyle(color: Colors.black),
-              controller: vin,
-              decoration: InputDecoration(
-                labelText: 'Search by VIN#1',
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.black,
+            Row(
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: vin,
+                    decoration: InputDecoration(
+                      labelText: 'Search VIN#1',
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onChanged: (String value){
+                      setState(() {
+                        search = value;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              onChanged: (String value){
-                setState(() {
-                  search = value;
-                });
-              },
+                SizedBox(
+                  width: 10,
+                ),
+                Flexible(
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: make,
+                    decoration: InputDecoration(
+                      labelText: 'Search Cars',
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: Colors.black,
+                      ),
+                    ),
+                    onChanged: (String value){
+                      setState(() {
+                        search1 = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
             Expanded(
-              child:
-              StreamBuilder(
-                stream: FirebaseFirestore.instance.collection("vehicleandSalllerInformaation").orderBy("make")
-                    .startAt([search]).endAt([search + "\uf8ff"]).snapshots(),
+              child: StreamBuilder(
+                stream: search.isNotEmpty ? FirebaseFirestore.instance.collection("vehicleandSalllerInformaation")
+                    .orderBy("vinn").startAt([search]).endAt([search + "\uf8ff"]).snapshots() :
+                    search1.isNotEmpty ?
+                FirebaseFirestore.instance.collection("vehicleandSalllerInformaation")
+                    .orderBy("make").startAt([search1]).endAt([search1 + "\uf8ff"]).snapshots() : null,
                 builder: (context,snapshot){
                   if(snapshot.hasData){
-                    return vin.text.isEmpty ?
-                    Center(
-                      child: Text(
-                        "Search Your Vin",style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),),
-                    ) :
+                    return vin.text.isNotEmpty ?
                     ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context,index){
@@ -137,10 +160,94 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                           ),
                         );
                       },
-                    );
-
+                    ) :
+                    make.text.isNotEmpty ?
+                    ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context,index){
+                        return Card(
+                          // key: snapshot.data!.docs[index].id,
+                          color: Colors.white,
+                          child: ListTile(
+                            leading: Container(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: CachedNetworkImage(
+                                  height: 50,
+                                  width: 50,
+                                  fit: BoxFit.cover,
+                                  imageUrl: snapshot.data!.docs[index]["image6"],
+                                  placeholder: (context, url) => CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                ),
+                              ),
+                            ),
+                            title: Text(snapshot.data!.docs[index]["make"]),
+                            subtitle: Text(snapshot.data!.docs[index]["vinn"]),
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateVehicalSellerInformation(
+                                      uid: snapshot.data!.docs[index].id,
+                                      sellerName: snapshot.data?.docs[index]["name_of_seller"],
+                                    ),
+                                    ),
+                                    );
+                                  },
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                InkWell(
+                                  onTap: (){
+                                    FirebaseFirestore.instance
+                                        .collection("vehicleandSalllerInformaation")
+                                        .doc(snapshot.data!.docs[index].id).delete();
+                                  },
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => VehicleDetailScreenTwo(
+                                image1: snapshot.data!.docs[index]["image1"],
+                                image2: snapshot.data!.docs[index]["image2"],
+                                image3: snapshot.data!.docs[index]["image3"],
+                                image4: snapshot.data!.docs[index]["image4"],
+                                image5: snapshot.data!.docs[index]["image5"],
+                                image6: snapshot.data!.docs[index]["image6"],
+                                image7: snapshot.data!.docs[index]["image7"],
+                                image8: snapshot.data!.docs[index]["image8"],
+                                image9: snapshot.data!.docs[index]["image9"],
+                                image10: snapshot.data!.docs[index]["image10"],
+                                image11: snapshot.data!.docs[index]["image11"],
+                                date: snapshot.data!.docs[index]["date"],
+                                address: snapshot.data!.docs[index]["address"],
+                                model: snapshot.data!.docs[index]["model"],
+                                make: snapshot.data!.docs[index]["make"],
+                                name_of_seller: snapshot.data!.docs[index]["name_of_seller"],
+                                vinn: snapshot.data!.docs[index]["vinn"],
+                                year: snapshot.data!.docs[index]["year"],
+                                purchase_Price: snapshot.data!.docs[index]["purchase_Price"],
+                              ),
+                              ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ) : Text("");
                   }else{
-                    return Center(child: CircularProgressIndicator());
+                    return Center(child: Text(""));
                   }
                 },
               ),
