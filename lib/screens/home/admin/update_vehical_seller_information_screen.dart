@@ -459,78 +459,80 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                   SizedBox(
                     height: 40,
                   ),
-                  Container(
-                    height: 40.h,
-                    width: 350.w,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10.r)),
-                    child: Center(
-                      child: InkWell(
-                        onTap: () async {
-                          print("sasa");
-                          setState(() {
-                            loading = true;
-                          });
-                          try{
-                            await value.uploadImage1(context);
-                            await value.uploadImage2(context);
-                            await value.uploadImage3(context);
-                            await value.uploadImage4(context);
-                            await value.uploadImage5(context);
-                            await value.uploadImage6(context);
-                            await value.uploadImage7(context);
-                            await value.uploadImage8(context);
-                            await value.uploadImage9(context);
-                            await value.uploadImage10(context);
-                            await value.uploadImage11(context);
-                            await FirebaseFirestore.instance
-                                .collection("vehicleandSalllerInformaation")
-                                .doc(widget.uid).update({
-                              "name_of_seller" : sellerName.text,
-                              "address" : address.text,
-                              "date" : date.text,
-                              "make" : make.text,
-                              "model" : model.text,
-                              "vinn" : vinn.text,
-                              "purchase_Price" : purchasePrice.text,
-                              "year" : year.text,
-                              "image1" : value.imageUrlDownload1,
-                              "image2" : value.imageUrlDownload2,
-                              "image3" : value.imageUrlDownload3,
-                              "image4" : value.imageUrlDownload4,
-                              "image5" : value.imageUrlDownload5,
-                              "image6" : value.imageUrlDownload6,
-                              "image7" : value.imageUrlDownload7,
-                              "image8" : value.imageUrlDownload8,
-                              "image9" : value.imageUrlDownload9,
-                              "image10" : value.imageUrlDownload10,
-                              "image11" : value.imageUrlDownload11,
-                            }).then((value){
-                              print("asaas");
-                              Navigator.pop(context);
-                              setState(() {
-                                loading = false;
-                              });
-                            }).onError((error, stackTrace){
-                              setState(() {
-                                print(error);
-                                loading = false;
-                              });
-                            });
-                          }catch(e){
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Container(
+                      height: 40.h,
+                      width: 350.w,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10.r)),
+                      child: Center(
+                        child: InkWell(
+                          onTap: () async {
                             setState(() {
-                              loading = false;
+                              loading = true;
                             });
-                          }
-                        },
-                        child: loading ?
-                        Center(child: CircularProgressIndicator(color: Colors.white,)) :
-                        Text(
-                          'Update',
-                          style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold),
+                            try{
+                              await value.uploadImage1(context);
+                              await value.uploadImage2(context);
+                              await value.uploadImage3(context);
+                              await value.uploadImage4(context);
+                              await value.uploadImage5(context);
+                              await value.uploadImage6(context);
+                              await value.uploadImage7(context);
+                              await value.uploadImage8(context);
+                              await value.uploadImage9(context);
+                              await value.uploadImage10(context);
+                              await value.uploadImage11(context);
+                              await FirebaseFirestore.instance
+                                  .collection("vehicleandSalllerInformaation")
+                                  .doc(widget.uid).update({
+                                "name_of_seller" : sellerName.text,
+                                "address" : address.text,
+                                "date" : date.text,
+                                "make" : make.text,
+                                "model" : model.text,
+                                "vinn" : vinn.text,
+                                "purchase_Price" : purchasePrice.text,
+                                "year" : year.text,
+                                "image1" : value.imageUrlDownload1,
+                                "image2" : value.imageUrlDownload2,
+                                "image3" : value.imageUrlDownload3,
+                                "image4" : value.imageUrlDownload4,
+                                "image5" : value.imageUrlDownload5,
+                                "image6" : value.imageUrlDownload6,
+                                "image7" : value.imageUrlDownload7,
+                                "image8" : value.imageUrlDownload8,
+                                "image9" : value.imageUrlDownload9,
+                                "image10" : value.imageUrlDownload10,
+                                "image11" : value.imageUrlDownload11,
+                              }).then((value){
+                                print("asaas");
+                                Navigator.pop(context);
+                                setState(() {
+                                  loading = false;
+                                });
+                              }).onError((error, stackTrace){
+                                setState(() {
+                                  print(error);
+                                  loading = false;
+                                });
+                              });
+                            }catch(e){
+                              setState(() {
+                                loading = false;
+                              });
+                            }
+                          },
+                          child: loading ?
+                          Center(child: CircularProgressIndicator(color: Colors.white,)) :
+                          Text(
+                            'Update',
+                            style: TextStyle(
+                                fontSize: 18.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),

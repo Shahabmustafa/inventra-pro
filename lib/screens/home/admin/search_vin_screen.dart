@@ -117,7 +117,7 @@ class _SearchVinScreenState extends State<SearchVinScreen> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 5,
+                                  height: 8,
                                 ),
                                 InkWell(
                                   onTap: (){
