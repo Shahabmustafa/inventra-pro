@@ -1,4 +1,5 @@
 import 'package:InventaPro/provider/WidgetsViewModel1.dart';
+import 'package:InventaPro/provider/update_images.dart';
 import 'package:InventaPro/screens/splash/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (context) => WidgetsViewModel1(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => updateImagesController(),
             ),
           ],
           child: GetMaterialApp(
