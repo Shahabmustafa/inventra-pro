@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:InventaPro/provider/update_images.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,7 +75,7 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
         title: Text("Update Vehical"),
         centerTitle: true,
       ),
-      body: Consumer<WidgetsViewModel1>(
+      body: Consumer<updateImagesController>(
         builder: (context,value,child){
           return SingleChildScrollView(
             child: Padding(
@@ -86,87 +87,91 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                     child: StreamBuilder(
                       stream: FirebaseFirestore.instance.collection("inventoryTrackList").doc(widget.uid).snapshots(),
                       builder: (context,snapshot){
-                        Map<String,dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
-                        return Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onTap: (){
-                                    value.selectGalleryImage12();
-                                  },
-                                  child: Center(
-                                    child: Container(
-                                      height: 100,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100),
-                                          border: Border.all(color: Colors.black,),
-                                          image: value.imageFile12 ==
-                                              null ?
-                                          DecorationImage(
-                                              image: NetworkImage(data["image12"]),
-                                              fit: BoxFit.cover
-                                          ) : DecorationImage(
-                                              image: FileImage(File(value.imageFile12!.path)),
-                                              fit: BoxFit.cover
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    value.cameraPicker();
-                                  },
-                                  child: Center(
-                                    child: Container(
-                                      height: 100,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100),
-                                          border: Border.all(color: Colors.black,),
-                                          image: value.imageFile13 ==
-                                              null ?
-                                          DecorationImage(
-                                              image: NetworkImage(data["image13"]),
-                                              fit: BoxFit.cover
-                                          ) : DecorationImage(
-                                              image: FileImage(File(value.imageFile13!.path)),
-                                              fit: BoxFit.cover
-                                          )
-                                      ),                                       ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    value.cameraPicker14();
-                                  },
-                                  child: Center(
-                                    child: Container(
-                                      height: 100,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(100),
-                                          border: Border.all(color: Colors.black,),
-                                          image: value.imageFile14 ==
-                                              null ?
-                                          DecorationImage(
-                                              image: NetworkImage(data["image14"]),
-                                              fit: BoxFit.cover
-                                          ) : DecorationImage(
-                                              image: FileImage(File(value.imageFile14!.path)),
-                                              fit: BoxFit.cover
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
+                       if(snapshot.hasData){
+                         Map<String,dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
+                         return Column(
+                           children: [
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                               children: [
+                                 GestureDetector(
+                                   onTap: (){
+                                     value.pickCameraImage12(context, widget.uid);
+                                   },
+                                   child: Center(
+                                     child: Container(
+                                       height: 100,
+                                       width: 100,
+                                       decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(100),
+                                           border: Border.all(color: Colors.black,),
+                                           image: value.image12 ==
+                                               null ?
+                                           DecorationImage(
+                                               image: NetworkImage(data["image12"]),
+                                               fit: BoxFit.cover
+                                           ) : DecorationImage(
+                                               image: FileImage(File(value.image12!.path)),
+                                               fit: BoxFit.cover
+                                           )
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                                 GestureDetector(
+                                   onTap: (){
+                                     value.pickCameraImage13(context, widget.uid);
+                                   },
+                                   child: Center(
+                                     child: Container(
+                                       height: 100,
+                                       width: 100,
+                                       decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(100),
+                                           border: Border.all(color: Colors.black,),
+                                           image: value.image13 ==
+                                               null ?
+                                           DecorationImage(
+                                               image: NetworkImage(data["image13"]),
+                                               fit: BoxFit.cover
+                                           ) : DecorationImage(
+                                               image: FileImage(File(value.image13!.path)),
+                                               fit: BoxFit.cover
+                                           )
+                                       ),                                       ),
+                                   ),
+                                 ),
+                                 GestureDetector(
+                                   onTap: (){
+                                     value.pickCameraImage14(context, widget.uid);
+                                   },
+                                   child: Center(
+                                     child: Container(
+                                       height: 100,
+                                       width: 100,
+                                       decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(100),
+                                           border: Border.all(color: Colors.black,),
+                                           image: value.image14 ==
+                                               null ?
+                                           DecorationImage(
+                                               image: NetworkImage(data["image14"]),
+                                               fit: BoxFit.cover
+                                           ) : DecorationImage(
+                                               image: FileImage(File(value.image14!.path)),
+                                               fit: BoxFit.cover
+                                           )
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+                               ],
+                             ),
+                           ],
+                         );
+                       }else{
+                         return Center(child: CircularProgressIndicator());
+                       }
                       },
                     )
                   ),
@@ -314,9 +319,6 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                               loading = true;
                             });
                             try{
-                              await value.uploadImage12(context);
-                              await value.uploadImage13(context);
-                              await value.uploadImage14(context);
                               await FirebaseFirestore.instance
                                   .collection("inventoryTrackList")
                                   .doc(widget.uid).update({
@@ -332,9 +334,6 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                 "tires" : tires.text,
                                 "vinn" : vinn.text,
                                 "year" : year.text,
-                                "image12" : value.imageUrlDownload12,
-                                "image13" : value.imageUrlDownload13,
-                                "image14" : value.imageUrlDownload14,
                               }).then((value){
                                 print("asaas");
                                 Navigator.pop(context);
