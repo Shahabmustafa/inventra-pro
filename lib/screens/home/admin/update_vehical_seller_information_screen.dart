@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 
+import 'package:InventaPro/provider/update_images.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/WidgetsViewModel1.dart';
@@ -55,11 +58,17 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
   }
 
 
+  ImagePicker imagePicker = ImagePicker();
+
+
+  File? pick1;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchDataFromFirebase();
+    print(widget.uid);
   }
   Widget build(BuildContext context) {
     sellerName = TextEditingController(text: widget.sellerName);
@@ -68,7 +77,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
         title: Text("Update Vehical"),
         centerTitle: true,
       ),
-      body: Consumer<WidgetsViewModel1>(
+      body: Consumer<updateImagesController>(
         builder: (context,value,child){
           return SingleChildScrollView(
             child: Padding(
@@ -89,8 +98,8 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   GestureDetector(
-                                    onTap: (){
-                                      value.selectCameraImage1();
+                                    onTap: ()async{
+                                      value.pickCameraImage1(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -99,13 +108,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile1 ==
+                                            image: value.image1 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image1"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile1!.path)),
+                                                image: FileImage(File(value.image1!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -114,7 +123,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage2();
+                                      value.pickCameraImage2(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -123,13 +132,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile2 ==
+                                            image: value.image2 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image2"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile2!.path)),
+                                                image: FileImage(File(value.image2!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),                                       ),
@@ -137,7 +146,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage3();
+                                      value.pickCameraImage3(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -146,13 +155,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile3 ==
+                                            image: value.image3 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image3"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile3!.path)),
+                                                image: FileImage(File(value.image3!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -166,7 +175,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage4();
+                                      value.pickCameraImage4(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -175,13 +184,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile4 ==
+                                            image: value.image4 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image4"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile4!.path)),
+                                                image: FileImage(File(value.image4!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -190,7 +199,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage5();
+                                      value.pickCameraImage5(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -199,13 +208,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile5 ==
+                                            image: value.image5 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image5"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile5!.path)),
+                                                image: FileImage(File(value.image5!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),                                       ),
@@ -213,7 +222,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage6();
+                                      value.pickCameraImage6(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -222,13 +231,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile6 ==
+                                            image: value.image6 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image6"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile6!.path)),
+                                                image: FileImage(File(value.image6!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -242,7 +251,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage7();
+                                      value.pickCameraImage7(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -251,13 +260,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile7 ==
+                                            image: value.image7 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image7"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile7!.path)),
+                                                image: FileImage(File(value.image7!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),                                       ),
@@ -265,7 +274,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage8();
+                                      value.pickCameraImage8(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -274,13 +283,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile8 ==
+                                            image: value.image8 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image8"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile8!.path)),
+                                                image: FileImage(File(value.image8!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -289,7 +298,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage9();
+                                      value.pickCameraImage9(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -298,13 +307,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile9 ==
+                                            image: value.image9 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image9"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile9!.path)),
+                                                image: FileImage(File(value.image9!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -318,7 +327,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage10();
+                                      value.pickCameraImage10(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -327,13 +336,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile10 ==
+                                            image: value.image10 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image10"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile10!.path)),
+                                                image: FileImage(File(value.image10!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -342,7 +351,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.selectCameraImage11();
+                                      value.pickCameraImage11(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -351,13 +360,13 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(100),
                                             border: Border.all(color: Colors.black,),
-                                            image: value.imageFile11 ==
+                                            image: value.image11 ==
                                                 null ?
                                             DecorationImage(
                                                 image: NetworkImage(data["image11"]),
                                                 fit: BoxFit.cover
                                             ) : DecorationImage(
-                                                image: FileImage(File(value.imageFile11!.path)),
+                                                image: FileImage(File(value.image11!.path)),
                                                 fit: BoxFit.cover
                                             )
                                         ),
@@ -474,17 +483,6 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                               loading = true;
                             });
                             try{
-                              await value.uploadImage1(context);
-                              await value.uploadImage2(context);
-                              await value.uploadImage3(context);
-                              await value.uploadImage4(context);
-                              await value.uploadImage5(context);
-                              await value.uploadImage6(context);
-                              await value.uploadImage7(context);
-                              await value.uploadImage8(context);
-                              await value.uploadImage9(context);
-                              await value.uploadImage10(context);
-                              await value.uploadImage11(context);
                               await FirebaseFirestore.instance
                                   .collection("vehicleandSalllerInformaation")
                                   .doc(widget.uid).update({
@@ -496,17 +494,6 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 "vinn" : vinn.text,
                                 "purchase_Price" : purchasePrice.text,
                                 "year" : year.text,
-                                "image1" : value.imageUrlDownload1,
-                                "image2" : value.imageUrlDownload2,
-                                "image3" : value.imageUrlDownload3,
-                                "image4" : value.imageUrlDownload4,
-                                "image5" : value.imageUrlDownload5,
-                                "image6" : value.imageUrlDownload6,
-                                "image7" : value.imageUrlDownload7,
-                                "image8" : value.imageUrlDownload8,
-                                "image9" : value.imageUrlDownload9,
-                                "image10" : value.imageUrlDownload10,
-                                "image11" : value.imageUrlDownload11,
                               }).then((value){
                                 print("asaas");
                                 Navigator.pop(context);
