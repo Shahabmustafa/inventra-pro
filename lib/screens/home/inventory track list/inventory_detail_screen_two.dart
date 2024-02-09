@@ -122,7 +122,7 @@ class _InventoryDetailScreenTwoState extends State<InventoryDetailScreenTwo> {
             Card(
               child: ListTile(
                 title: Text("Receipt"),
-                trailing: Text(widget.key.toString()),
+                trailing: Text(widget.Receipt.toString()),
               ),
             ),
             Card(
