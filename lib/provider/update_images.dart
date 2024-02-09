@@ -59,8 +59,8 @@ class updateImagesController with ChangeNotifier{
   XFile? _image14;
   XFile? get image14 => _image14;
 
-  Future pickCameraImage1(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage1(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image1 = XFile(picked.path);
       notifyListeners();
@@ -68,8 +68,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage2(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage2(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image2 = XFile(picked.path);
       notifyListeners();
@@ -77,8 +77,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage3(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage3(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image3 = XFile(picked.path);
       notifyListeners();
@@ -86,8 +86,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage4(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage4(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image4 = XFile(picked.path);
       notifyListeners();
@@ -95,8 +95,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage5(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage5(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image5 = XFile(picked.path);
       notifyListeners();
@@ -104,8 +104,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage6(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage6(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image6 = XFile(picked.path);
       notifyListeners();
@@ -113,8 +113,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage7(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage7(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image7 = XFile(picked.path);
       notifyListeners();
@@ -122,8 +122,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage8(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage8(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image8 = XFile(picked.path);
       notifyListeners();
@@ -131,8 +131,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage9(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage9(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image9 = XFile(picked.path);
       notifyListeners();
@@ -141,8 +141,8 @@ class updateImagesController with ChangeNotifier{
   }
 
 
-  Future pickCameraImage10(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage10(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image10 = XFile(picked.path);
       notifyListeners();
@@ -150,8 +150,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage11(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage11(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image11 = XFile(picked.path);
       notifyListeners();
@@ -159,17 +159,18 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage12(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage12(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image12 = XFile(picked.path);
       notifyListeners();
       uploadImage12(context,id);
+      Navigator.pop(context);
     }
   }
 
-  Future pickCameraImage13(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage13(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image13 = XFile(picked.path);
       notifyListeners();
@@ -177,8 +178,8 @@ class updateImagesController with ChangeNotifier{
     }
   }
 
-  Future pickCameraImage14(BuildContext context,String id)async{
-    final picked = await imagePicker.pickImage(source: ImageSource.camera);
+  Future pickCameraImage14(BuildContext context,String id,ImageSource imageSource)async{
+    final picked = await imagePicker.pickImage(source: imageSource);
     if(picked != null){
       _image14 = XFile(picked.path);
       notifyListeners();
