@@ -1,3 +1,4 @@
+import 'package:InventaPro/screens/home/admin/search_vin_screen.dart';
 import 'package:InventaPro/screens/home/admin/update_inventry_seller_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -58,64 +59,101 @@ class _SearchInventryScreenState extends State<SearchInventryScreen> {
                     ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context,index){
-                        return Card(
-                          color: Colors.white,
-                          child: ListTile(
-                            title: Text("Car Name"),
-                            subtitle: Text(snapshot.data!.docs[index]["carName"]),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateInventryInformation(
-                                      uid: snapshot.data!.docs[index].id,),
-                                    ),
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: Colors.blue,
+                        return CardBox(
+                          title: "Car Name",
+                          imageUrl: snapshot.data!.docs[index]["image12"],
+                          subTitile: snapshot.data!.docs[index]["carName"],
+                          tapDelete: (){
+                            FirebaseFirestore.instance
+                                .collection("inventoryTrackList")
+                                .doc(snapshot.data!.docs[index].id).delete();
+                          },
+                          pressCard: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                      InventoryDetailScreenTwo(
+                                        id: snapshot.data!.docs[index].id,
+                                        carName: snapshot.data!.docs[index]["carName"],
+                                        by_name_of_parts: snapshot.data!.docs[index]["by_name_of_parts"],
+                                        condition: snapshot.data!.docs[index]["condition"],
+                                        make: snapshot.data!.docs[index]["make"],
+                                        model: snapshot.data!.docs[index]["model"],
+                                        make2: snapshot.data!.docs[index]["make2"],
+                                        tires: snapshot.data!.docs[index]["tires"],
+                                        year: snapshot.data!.docs[index]["year"],
+                                        size: snapshot.data!.docs[index]["size"],
+                                        image12: snapshot.data!.docs[index]["image12"],
+                                        image13: snapshot.data!.docs[index]["image13"],
+                                        image14: snapshot.data!.docs[index]["image14"],
+                                        vinn: snapshot.data!.docs[index]["vinn"],
+                                        Receipt: snapshot.data!.docs[index]["search_list_by_size_of_tires"],
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                InkWell(
-                                  onTap: (){
-                                    FirebaseFirestore.instance
-                                        .collection("inventoryTrackList")
-                                        .doc(snapshot.data!.docs[index].id).delete();
-                                  },
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
                                   ),
-                                ),
-                              ],
-                            ),
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                  InventoryDetailScreenTwo(
-                                    id: snapshot.data!.docs[index].id,
-                                    carName: snapshot.data!.docs[index]["carName"],
-                                    by_name_of_parts: snapshot.data!.docs[index]["by_name_of_parts"],
-                                    condition: snapshot.data!.docs[index]["condition"],
-                                    make: snapshot.data!.docs[index]["make"],
-                                    model: snapshot.data!.docs[index]["model"],
-                                    make2: snapshot.data!.docs[index]["make2"],
-                                    tires: snapshot.data!.docs[index]["tires"],
-                                    year: snapshot.data!.docs[index]["year"],
-                                    size: snapshot.data!.docs[index]["size"],
-                                    image12: snapshot.data!.docs[index]["image12"],
-                                    vinn: snapshot.data!.docs[index]["vinn"],
-                                    Receipt: snapshot.data!.docs[index]["search_list_by_size_of_tires"],
-                              ),
-                              ),
-                              );
-                            },
-                          ),
+                                  );
+                          },
+                          tapEdit: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateInventryInformation(
+                              uid: snapshot.data!.docs[index].id,),
+                            ),);
+                          },
                         );
+                        //   Card(
+                        //   color: Colors.white,
+                        //   child: ListTile(
+                        //     title: Text("Car Name"),
+                        //     subtitle: Text(snapshot.data!.docs[index]["carName"]),
+                        //     trailing: Column(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         InkWell(
+                        //           onTap: (){
+                        //             Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateInventryInformation(
+                        //               uid: snapshot.data!.docs[index].id,),
+                        //             ),
+                        //             );
+                        //           },
+                        //           child: Icon(
+                        //             Icons.edit,
+                        //             color: Colors.blue,
+                        //           ),
+                        //         ),
+                        //         SizedBox(
+                        //           height: 5,
+                        //         ),
+                        //         InkWell(
+                        //           onTap: (){
+                        //             FirebaseFirestore.instance
+                        //                 .collection("inventoryTrackList")
+                        //                 .doc(snapshot.data!.docs[index].id).delete();
+                        //           },
+                        //           child: Icon(
+                        //             Icons.delete,
+                        //             color: Colors.red,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     onTap: (){
+                        //       Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                        //           InventoryDetailScreenTwo(
+                        //             id: snapshot.data!.docs[index].id,
+                        //             carName: snapshot.data!.docs[index]["carName"],
+                        //             by_name_of_parts: snapshot.data!.docs[index]["by_name_of_parts"],
+                        //             condition: snapshot.data!.docs[index]["condition"],
+                        //             make: snapshot.data!.docs[index]["make"],
+                        //             model: snapshot.data!.docs[index]["model"],
+                        //             make2: snapshot.data!.docs[index]["make2"],
+                        //             tires: snapshot.data!.docs[index]["tires"],
+                        //             year: snapshot.data!.docs[index]["year"],
+                        //             size: snapshot.data!.docs[index]["size"],
+                        //             image12: snapshot.data!.docs[index]["image12"],
+                        //             vinn: snapshot.data!.docs[index]["vinn"],
+                        //             Receipt: snapshot.data!.docs[index]["search_list_by_size_of_tires"],
+                        //       ),
+                        //       ),
+                        //       );
+                        //     },
+                        //   ),
+                        // );
                       },
                     );
 
