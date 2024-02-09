@@ -4,6 +4,8 @@ import 'package:InventaPro/provider/update_images.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/WidgetsViewModel1.dart';
@@ -96,7 +98,32 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                children: [
                                  GestureDetector(
                                    onTap: (){
-                                     // value.pickCameraImage12(context, widget.uid);
+                                     showDialog(
+                                       context: context,
+                                       builder: (context){
+                                         return Dialog(
+                                           child: Column(
+                                             mainAxisSize: MainAxisSize.min,
+                                             children: [
+                                               ListTile(
+                                                 leading: Icon(Icons.camera_alt),
+                                                 title: Text("Camera"),
+                                                 onTap: (){
+                                                   value.pickCameraImage12(context, widget.uid,ImageSource.camera);
+                                                 },
+                                               ),
+                                               ListTile(
+                                                 leading: Icon(Icons.photo),
+                                                 title: Text("Gallery"),
+                                                 onTap: (){
+                                                   value.pickCameraImage12(context, widget.uid,ImageSource.gallery);
+                                                 },
+                                               ),
+                                             ],
+                                           ),
+                                         );
+                                       },
+                                     );
                                    },
                                    child: Center(
                                      child: Container(
@@ -120,7 +147,32 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                  ),
                                  GestureDetector(
                                    onTap: (){
-                                     // value.pickCameraImage13(context, widget.uid);
+                                     showDialog(
+                                       context: context,
+                                       builder: (context){
+                                         return Dialog(
+                                           child: Column(
+                                             mainAxisSize: MainAxisSize.min,
+                                             children: [
+                                               ListTile(
+                                                 leading: Icon(Icons.camera_alt),
+                                                 title: Text("Camera"),
+                                                 onTap: (){
+                                                   value.pickCameraImage13(context, widget.uid,ImageSource.camera);
+                                                 },
+                                               ),
+                                               ListTile(
+                                                 leading: Icon(Icons.photo),
+                                                 title: Text("Gallery"),
+                                                 onTap: (){
+                                                   value.pickCameraImage13(context, widget.uid,ImageSource.gallery);
+                                                 },
+                                               ),
+                                             ],
+                                           ),
+                                         );
+                                       },
+                                     );
                                    },
                                    child: Center(
                                      child: Container(
@@ -143,7 +195,32 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                  ),
                                  GestureDetector(
                                    onTap: (){
-                                     // value.pickCameraImage14(context, widget.uid);
+                                     showDialog(
+                                       context: context,
+                                       builder: (context){
+                                         return Dialog(
+                                           child: Column(
+                                             mainAxisSize: MainAxisSize.min,
+                                             children: [
+                                               ListTile(
+                                                 leading: Icon(Icons.camera_alt),
+                                                 title: Text("Camera"),
+                                                 onTap: (){
+                                                   value.pickCameraImage14(context, widget.uid,ImageSource.camera);
+                                                 },
+                                               ),
+                                               ListTile(
+                                                 leading: Icon(Icons.photo),
+                                                 title: Text("Gallery"),
+                                                 onTap: (){
+                                                   value.pickCameraImage14(context, widget.uid,ImageSource.gallery);
+                                                 },
+                                               ),
+                                             ],
+                                           ),
+                                         );
+                                       },
+                                     );
                                    },
                                    child: Center(
                                      child: Container(
@@ -374,9 +451,4 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
       )
     );
   }
-}
-
-
-Widget showBottom(){
-  return AlertDialog();
 }
