@@ -99,7 +99,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: ()async{
-                                      value.pickCameraImage1(context, widget.uid);
+                                      // value.pickCameraImage1(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -123,7 +123,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage2(context, widget.uid);
+                                      // value.pickCameraImage2(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -146,7 +146,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage3(context, widget.uid);
+                                      // value.pickCameraImage3(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -175,7 +175,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage4(context, widget.uid);
+                                      // value.pickCameraImage4(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -199,7 +199,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage5(context, widget.uid);
+                                      // value.pickCameraImage5(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -222,7 +222,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage6(context, widget.uid);
+                                      // value.pickCameraImage6(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -251,7 +251,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage7(context, widget.uid);
+                                      // value.pickCameraImage7(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -274,7 +274,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage8(context, widget.uid);
+                                      // value.pickCameraImage8(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -298,7 +298,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage9(context, widget.uid);
+                                      // value.pickCameraImage9(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -327,7 +327,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage10(context, widget.uid);
+                                      // value.pickCameraImage10(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
@@ -351,7 +351,7 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      value.pickCameraImage11(context, widget.uid);
+                                      // value.pickCameraImage11(context, widget.uid);
                                     },
                                     child: Center(
                                       child: Container(
