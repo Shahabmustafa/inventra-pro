@@ -98,8 +98,33 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
                                   GestureDetector(
-                                    onTap: ()async{
-                                      // value.pickCameraImage1(context, widget.uid);
+                                    onTap: (){
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage1(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage1(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -123,7 +148,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage2(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage2(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage2(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -146,7 +196,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage3(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage3(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage3(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -175,7 +250,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage4(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage4(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage4(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -199,7 +299,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage5(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage5(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage5(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -222,7 +347,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage6(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage6(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage6(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -251,7 +401,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage7(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage7(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage7(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -274,7 +449,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage8(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage8(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage8(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -298,7 +498,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage9(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage9(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage9(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -327,7 +552,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                 children: [
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage10(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage10(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage10(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
@@ -351,7 +601,32 @@ class _UpdateVehicalSellerInformationState extends State<UpdateVehicalSellerInfo
                                   ),
                                   GestureDetector(
                                     onTap: (){
-                                      // value.pickCameraImage11(context, widget.uid);
+                                      showDialog(
+                                        context: context,
+                                        builder: (context){
+                                          return Dialog(
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                ListTile(
+                                                  leading: Icon(Icons.camera_alt),
+                                                  title: Text("Camera"),
+                                                  onTap: (){
+                                                    value.pickCameraImage11(context, widget.uid,ImageSource.camera);
+                                                  },
+                                                ),
+                                                ListTile(
+                                                  leading: Icon(Icons.photo),
+                                                  title: Text("Gallery"),
+                                                  onTap: (){
+                                                    value.pickCameraImage11(context, widget.uid,ImageSource.gallery);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
                                     },
                                     child: Center(
                                       child: Container(
