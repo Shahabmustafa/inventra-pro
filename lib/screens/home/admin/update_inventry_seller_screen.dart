@@ -96,7 +96,7 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                children: [
                                  GestureDetector(
                                    onTap: (){
-                                     value.pickCameraImage12(context, widget.uid);
+                                     // value.pickCameraImage12(context, widget.uid);
                                    },
                                    child: Center(
                                      child: Container(
@@ -120,7 +120,7 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                  ),
                                  GestureDetector(
                                    onTap: (){
-                                     value.pickCameraImage13(context, widget.uid);
+                                     // value.pickCameraImage13(context, widget.uid);
                                    },
                                    child: Center(
                                      child: Container(
@@ -143,7 +143,7 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
                                  ),
                                  GestureDetector(
                                    onTap: (){
-                                     value.pickCameraImage14(context, widget.uid);
+                                     // value.pickCameraImage14(context, widget.uid);
                                    },
                                    child: Center(
                                      child: Container(
@@ -374,4 +374,9 @@ class _UpdateInventryInformationState extends State<UpdateInventryInformation> {
       )
     );
   }
+}
+
+
+Widget showBottom(){
+  return AlertDialog();
 }
